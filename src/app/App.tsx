@@ -1,9 +1,16 @@
+import Layout from 'src/widgets/Layout/Layout';
 import styles from './App.module.scss';
+import AppRoutes from './routes/AppRoutes';
+import { BrowserRouter } from 'react-router-dom';
 
 const App: React.FC = () => {
   return (
     <div className={styles.container}>
-      <h1>Welcome to App Store!!!</h1>
+      <BrowserRouter>
+        <Layout>
+          <AppRoutes />
+        </Layout>
+      </BrowserRouter>
     </div>
   );
 };
