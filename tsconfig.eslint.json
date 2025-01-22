@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "types": ["node", "jest"],
     "noEmit": true
   },
   "include": ["src", "declarations.d.ts", "jest.config.ts", "jest.setup.ts"]
