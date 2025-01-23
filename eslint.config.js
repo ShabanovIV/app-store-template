@@ -60,11 +60,30 @@ export default tseslint.config(
     rules: {
       ...prettierPlugin.configs.recommended.rules,
       ...eslintConfigPrettier.rules,
+      'import-x/no-dynamic-require': 'warn',
+      'import-x/no-nodejs-modules': 'warn',
+      'import-x/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal', ['parent', 'sibling'], 'index'],
+          pathGroups: [
+            {
+              pattern: 'react',
+              group: 'external',
+              position: 'before',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
+          'newlines-between': 'never',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
       'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
       'no-unused-vars': 'off',
-      'import-x/no-dynamic-require': 'warn',
-      'import-x/no-nodejs-modules': 'warn',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'prefer-const': 'error',
       'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
