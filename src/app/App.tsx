@@ -6,7 +6,7 @@ import AppRoutes from './routes/AppRoutes';
 const App: React.FC = () => {
   return (
     <div className={styles.container}>
-      <BrowserRouter>
+      <BrowserRouter basename="/app-store">
         <Layout>
           <AppRoutes />
         </Layout>
