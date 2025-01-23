@@ -20,3 +20,11 @@ export const removeItem = (key: StorageKey): void => {
 export const clearStorage = (): void => {
   localStorage.clear();
 };
+
+export const saveToken = (token: string): void => {
+  setItem(StorageKeys.token, token);
+};
+
+export const getToken = (): string | null => {
+  return getItem(StorageKeys.token);
+};
