@@ -3,8 +3,8 @@
 // 2. Настроить поддержку ссылок (например, кликабельность для перехода на главную страницу).
 // 3. Добавить обработку изображений, используя динамический импорт, если необходимо.
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ShopOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const Logo: React.FC = () => {
   return (

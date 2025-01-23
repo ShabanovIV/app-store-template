@@ -1,4 +1,3 @@
-// TODO: Добавить роуты.
 import { Routes, Route } from 'react-router-dom';
 
 const AppRoutes = () => {
