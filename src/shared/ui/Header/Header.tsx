@@ -1,8 +1,3 @@
-// TODO: (текущая) Реализовать Header.tsx
-// 1. Создать компонент Header для отображения навигационной панели.
-// 2. Добавить ссылки для перехода на ключевые страницы (например, Home, Products, Profile).
-// 3. Импортировать и интегрировать компонент Logo, если он существует.
-// 4. Настроить стили в Header.module.css, если используются CSS-модули.
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';

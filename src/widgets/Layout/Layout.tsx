@@ -1,8 +1,3 @@
-// TODO: (текущая) Реализовать Layout.tsx
-// 1. Создать компонент Layout для управления макетом приложения (Header, Footer, Content).
-// 2. Добавить обработку children для вставки контента.
-// 3. Импортировать и интегрировать компонент Header из shared/ui/Header.
-// 4. Настроить стили в Layout.module.css для контейнера макета.
 import React from 'react';
 import Header from 'src/shared/ui/Header/Header';
 import styles from './Layout.module.scss';
