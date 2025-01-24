@@ -1,18 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { AuthResult } from '../types/user';
+import { API_BASE_URL, API_COMMAND_ID } from 'src/shared/config';
+import { AuthResult, SignUpBody, SignInBody } from '../types/user';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://19429ba06ff2.vps.myjino.ru/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
   endpoints: (builder) => ({
-    signup: builder.mutation<AuthResult, { email: string; password: string }>({
+    signup: builder.mutation<AuthResult, SignUpBody>({
       query: (body) => ({
         url: '/signup',
         method: 'POST',
-        body,
+        body: { ...body, commandId: API_COMMAND_ID },
       }),
     }),
-    signin: builder.mutation<AuthResult, { email: string; password: string }>({
+    signin: builder.mutation<AuthResult, SignInBody>({
       query: (body) => ({
         url: '/signin',
         method: 'POST',

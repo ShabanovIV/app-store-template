@@ -1,19 +1,19 @@
-export const StorageKeys = {
+const StorageKeys = {
   token: 'token',
   user: 'user',
 } as const;
 
-export type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];
+type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];
 
-export const setItem = (key: StorageKey, value: string): void => {
+const setItem = (key: StorageKey, value: string): void => {
   localStorage.setItem(key, value);
 };
 
-export const getItem = (key: StorageKey): string | null => {
+const getItem = (key: StorageKey): string | null => {
   return localStorage.getItem(key);
 };
 
-export const removeItem = (key: StorageKey): void => {
+const removeItem = (key: StorageKey): void => {
   localStorage.removeItem(key);
 };
 
@@ -27,4 +27,8 @@ export const saveToken = (token: string): void => {
 
 export const getToken = (): string | null => {
   return getItem(StorageKeys.token);
+};
+
+export const removeToken = (): void => {
+  removeItem(StorageKeys.token);
 };
