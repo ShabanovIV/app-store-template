@@ -1,0 +1,86 @@
+.userCard {
+  display: flex;
+  align-items: center;
+  border: 0.063rem solid #ddd;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  transition:
+    box-shadow 300ms ease,
+    transform 300ms ease;
+
+  &:hover {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    transform: translateY(-0.125rem);
+  }
+}
+
+.avatar {
+  width: 3.125rem;
+  height: 3.125rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.defaultAvatarIcon {
+  font-size: 3.125rem;
+  color: #ccc;
+  margin-right: 1rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.email {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0.25rem 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.actionIcon {
+  font-size: 1rem;
+  color: #666;
+  cursor: pointer;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.actions button {
+  background: transparent;
+  border: 0.063rem solid #ddd;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+  cursor: pointer;
+  transition:
+    background 300ms,
+    color 300ms;
+
+  &:hover {
+    background: #eee;
+    color: #333;
+  }
+}
