@@ -84,6 +84,9 @@ export default (_, args) => {
       port: 3000,
       open: true,
       hot: true,
+      historyApiFallback: {
+        index: '/index.html',
+      },
     },
     optimization: {
       splitChunks: {

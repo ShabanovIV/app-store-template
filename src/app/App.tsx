@@ -6,7 +6,7 @@ import AppRoutes from './routes/AppRoutes';
 const App: React.FC = () => {
   return (
     <div className={styles.container}>
-      <BrowserRouter basename="/app-store">
+      <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/app-store' : '/'}>
         <Layout>
           <AppRoutes />
         </Layout>
