@@ -58,7 +58,7 @@ export default (_, args) => {
           use: ['style-loader', 'css-loader', 'sass-loader'],
         },
         {
-          test: /\.(png|jpe?g|gif|svg)$/i,
+          test: /\.(png|jpe?g|gif|svg|ico)$/i,
           type: 'asset/resource',
           generator: {
             filename: 'images/[name][contenthash][ext]',

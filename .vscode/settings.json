@@ -5,5 +5,18 @@
   "eslint.workingDirectories": [
     "./"
   ],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.github": true,
+    "**/__mocks__": true,
+    "**/.jest": true,
+    "**/dist": true
+  },
+  "explorerExclude.backup": {}
 }
