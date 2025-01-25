@@ -1,15 +1,20 @@
 import React from 'react';
-import { ShopOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
+import logo from './Logo.ico';
+import styles from './Logo.module.scss';
 
-const Logo: React.FC = () => {
-  return (
-    <div className="logo">
-      <Link to="/">
-        <ShopOutlined height={64} width={64} />
-      </Link>
-    </div>
-  );
+export const Logo: React.FC = () => {
+  const menuItems = [
+    {
+      key: 'logo',
+      label: (
+        <Link to="/">
+          <img src={logo} alt="App Store" className={styles.logo} />
+        </Link>
+      ),
+    },
+  ];
+
+  return <Menu theme="dark" mode="horizontal" selectable={false} items={menuItems} />;
 };
-
-export default Logo;

@@ -1,0 +1,17 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  padding: 1.25rem 0;
+}
+
+.footer {
+  padding: 0.625rem 0;
+  text-align: center;
+  background-color: #e9ecef;
+}
