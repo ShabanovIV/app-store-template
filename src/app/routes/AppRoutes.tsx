@@ -1,20 +1,26 @@
 import { Routes, Route } from 'react-router-dom';
+import { ROUTES, RouteTypes } from 'src/shared/config/routes';
 import PrivateRoute from './PrivateRoute';
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<div>Home</div>} />
-      <Route path="/login" element={<div>login</div>} />
-      <Route path="/products" element={<div>Products</div>} />
-      <Route
-        path="/profile"
-        element={
-          <PrivateRoute>
-            <div>Profile</div>
-          </PrivateRoute>
-        }
-      />
+      {Object.keys(ROUTES).map((key) => {
+        const route = ROUTES[key];
+        return route.type === RouteTypes.private ? (
+          <Route
+            key={key}
+            path={route.path}
+            element={
+              <PrivateRoute>
+                <div>{route.path}</div>
+              </PrivateRoute>
+            }
+          />
+        ) : (
+          <Route key={key} path={route.path} element={<div>{route.path}</div>} />
+        );
+      })}
     </Routes>
   );
 };
