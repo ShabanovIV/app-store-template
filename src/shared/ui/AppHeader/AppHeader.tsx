@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Header.module.scss';
+import styles from './AppHeader.module.scss';
 import Logo from '../Logo/Logo';
 
-const Header: React.FC = () => {
+const AppHeader: React.FC = () => {
   return (
     <header className={styles.header}>
       <Logo />
@@ -24,4 +24,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default AppHeader;
