@@ -18,6 +18,7 @@ const config: Config.InitialOptions = {
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js|jsx)$',
   testPathIgnorePatterns: ['\\.snap$', '\\.sass$', '<rootDir>/node_modules/'],
   cacheDirectory: '.jest/cache',
+  watchPathIgnorePatterns: ['<rootDir>/node_modules/fsevents'],
 };
 
 export default config;
