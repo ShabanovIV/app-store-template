@@ -23,9 +23,7 @@
     "@reduxjs/toolkit": "^2.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-redux": "^9.2.0",
-    "stylelint": "^16.13.2",
-    "stylelint-config-standard": "^37.0.0"
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
@@ -54,6 +52,8 @@
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
     "style-loader": "^4.0.0",
+    "stylelint": "^16.13.2",
+    "stylelint-config-standard": "^37.0.0",
     "stylelint-scss": "^6.10.1",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.2",
