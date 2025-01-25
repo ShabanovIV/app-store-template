@@ -88,6 +88,10 @@ export default (_, args) => {
         index: '/index.html',
       },
     },
+    performance: {
+      maxAssetSize: 512000,
+      maxEntrypointSize: 1024000,
+    },
     optimization: {
       splitChunks: {
         chunks: 'all',
