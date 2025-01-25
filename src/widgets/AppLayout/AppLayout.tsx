@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from 'src/shared/ui/Header/Header';
-import styles from './Layout.module.scss';
+import styles from './AppLayout.module.scss';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={styles.container}>
       <Header />
@@ -16,4 +16,4 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default AppLayout;
