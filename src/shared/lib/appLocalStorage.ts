@@ -1,6 +1,8 @@
+import { API_COMMAND_ID } from 'src/shared/config/apiConfig';
+
 const StorageKeys = {
-  token: 'token',
-  user: 'user',
+  token: `token-${API_COMMAND_ID}`,
+  user: `user-${API_COMMAND_ID}`,
 } as const;
 
 type StorageKey = (typeof StorageKeys)[keyof typeof StorageKeys];
