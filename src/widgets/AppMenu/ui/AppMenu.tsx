@@ -1,7 +1,7 @@
 import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from 'src/features/Auth';
 import { MENU_ROUTES, RouteTypes } from 'src/shared/config/routes';
-import { useAuth } from 'src/shared/hooks/useAuth';
 
 export const AppMenu: React.FC = () => {
   const location = useLocation();
