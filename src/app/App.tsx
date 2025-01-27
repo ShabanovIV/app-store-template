@@ -1,10 +1,10 @@
 import { Providers } from './providers/Providers';
-import AppRoutes from './routes/AppRoutes';
+import MenuRoutes from './routes/MenuRoutes';
 
 const App: React.FC = () => {
   return (
     <Providers>
-      <AppRoutes />
+      <MenuRoutes />
     </Providers>
   );
 };
