@@ -3,5 +3,5 @@ import { selectToken } from '../model/authSlice';
 
 export const useAuth = () => {
   const token = useAppSelector(selectToken);
-  return token === null;
+  return token !== null;
 };

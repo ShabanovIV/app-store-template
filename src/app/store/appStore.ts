@@ -8,6 +8,7 @@ export const appStore = configureStore({
     [userApi.reducerPath]: userApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userApi.middleware),
+  devTools: true,
 });
 
 declare global {
