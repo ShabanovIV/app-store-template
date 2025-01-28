@@ -26,14 +26,68 @@ export enum ErrorCode {
   ERR_INTERNAL_SERVER = 'ERR_INTERNAL_SERVER',
 }
 
-// const getErrorMessage(e: unknown) => {
-//     const serverError = e as { data: ServerErrors };
-//     const errors = serverError?.data?.errors;
+export const CodesToUp: ErrorCode[] = [ErrorCode.ERR_AUTH, ErrorCode.ERR_INTERNAL_SERVER];
 
-//     if (errors) {
-//       return errors.map((err) => err.message).join('\n');
-//     } else {
-//       const unkEr = e as { error: string };
-//       return unkEr?.error ?? 'Неизвестная ошибка.';
-//     }
-// }
+export const isTypeWithDataAsServerErrors = (error: unknown): error is { data: ServerErrors } => {
+  if (typeof error !== 'object' || error === null) {
+    return false;
+  }
+
+  if (!('data' in error) || !isServerErrors((error as { data: unknown })?.data)) {
+    return false;
+  }
+
+  return true;
+};
+
+export const isServerErrors = (error: unknown): error is ServerErrors => {
+  if (typeof error !== 'object' || error === null) {
+    return false;
+  }
+
+  if (!('errors' in error) || !Array.isArray((error as ServerErrors).errors)) {
+    return false;
+  }
+
+  return (error as ServerErrors).errors.every(
+    (err: unknown): err is ServerErrors['errors'][number] => {
+      if (typeof err !== 'object' || err === null) {
+        return false;
+      }
+
+      if (
+        typeof (err as ServerErrors['errors'][number]).name !== 'string' ||
+        typeof (err as ServerErrors['errors'][number]).message !== 'string' ||
+        typeof (err as ServerErrors['errors'][number]).stack !== 'string'
+      ) {
+        return false;
+      }
+
+      if (
+        !('extensions' in err) ||
+        typeof (err as ServerErrors['errors'][number]).extensions !== 'object' ||
+        (err as ServerErrors['errors'][number]).extensions === null
+      ) {
+        return false;
+      }
+
+      if (
+        typeof (err as ServerErrors['errors'][number]).extensions.code !== 'string' ||
+        !(Object.values(ErrorCode) as string[]).includes(
+          (err as ServerErrors['errors'][number]).extensions.code,
+        )
+      ) {
+        return false;
+      }
+
+      if (
+        'fieldName' in err &&
+        typeof (err as ServerErrors['errors'][number]).fieldName !== 'string'
+      ) {
+        return false;
+      }
+
+      return true;
+    },
+  );
+};
