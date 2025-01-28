@@ -18,7 +18,7 @@ const MenuRoutes = () => {
             }
           />
         ) : (
-          <Route key={key} path={route.path} element={<div>{route.path}</div>} />
+          <Route key={key} path={route.path} element={route.render()} />
         );
       })}
     </Routes>

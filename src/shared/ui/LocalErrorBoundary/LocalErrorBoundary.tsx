@@ -1,5 +1,10 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
-import { ErrorCode, isServerErrors } from 'src/shared/api/errors';
+import { Component, ReactNode } from 'react';
+import {
+  ErrorCode,
+  includeCode as includeCodes,
+  isServerErrors,
+  joinErrors,
+} from 'src/shared/api/errors';
 
 interface LocalErrorBoundaryProps {
   children: ReactNode;
@@ -19,26 +24,20 @@ export class LocalErrorBoundary extends Component<
     error: null,
   };
 
-  static getDerivedStateFromError(error: Error): LocalErrorBoundaryState {
-    return { hasError: true, error };
-  }
+  static getDerivedStateFromError(error: unknown): LocalErrorBoundaryState {
+    const codes: ErrorCode[] = [
+      ErrorCode.ERR_INCORRECT_EMAIL_OR_PASSWORD,
+      ErrorCode.ERR_ACCOUNT_ALREADY_EXIST,
+      ErrorCode.ERR_AUTH,
+    ];
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught in LocalErrorBoundary:', error, errorInfo);
-
-    // Проверяем, является ли ошибка ServerErrors с кодом ERR_INTERNAL_SERVER
-    if (this.isServerErrorWithInternalCode(error)) {
-      throw error; // Передаём ошибку выше
+    if (isServerErrors(error) && !includeCodes(error, codes)) {
+      throw new Error(joinErrors(error));
     }
 
-    // Если это не ServerErrors, или код ошибки не соответствует, обрабатываем локально
-  }
+    const message = isServerErrors(error) ? joinErrors(error) : 'Unknown error.';
 
-  private isServerErrorWithInternalCode(error: unknown): boolean {
-    if (isServerErrors(error)) {
-      return error.errors.some((err) => err.extensions.code === ErrorCode.ERR_INTERNAL_SERVER);
-    }
-    return false;
+    return { hasError: true, error: new Error(message) };
   }
 
   handleDismiss = () => {
@@ -49,8 +48,9 @@ export class LocalErrorBoundary extends Component<
     if (this.state.hasError) {
       return (
         <div>
-          <p>{this.state.error?.message || 'Произошла ошибка'}</p>
+          <p>{this.state.error?.message || 'Unknown error.'}</p>
           <button onClick={this.handleDismiss}>Закрыть</button>
+          {this.props.children}
         </div>
       );
     }

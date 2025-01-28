@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 export type ServerErrors = {
   errors: {
     extensions: {
@@ -26,7 +27,50 @@ export enum ErrorCode {
   ERR_INTERNAL_SERVER = 'ERR_INTERNAL_SERVER',
 }
 
-export const CodesToUp: ErrorCode[] = [ErrorCode.ERR_AUTH, ErrorCode.ERR_INTERNAL_SERVER];
+const codesToUp: ErrorCode[] = [
+  ErrorCode.ERR_INCORRECT_EMAIL_OR_PASSWORD,
+  ErrorCode.ERR_ACCOUNT_ALREADY_EXIST,
+  ErrorCode.ERR_FIELD_REQUIRED,
+  ErrorCode.ERR_NOT_VALID,
+  ErrorCode.ERR_AUTH,
+  ErrorCode.ERR_NO_FILES,
+  ErrorCode.ERR_NOT_ALLOWED,
+  ErrorCode.ERR_NOT_FOUND,
+  ErrorCode.ERR_INVALID_QUERY_PARAMS,
+  ErrorCode.ERR_INTERNAL_SERVER,
+];
+
+export const upToErrBoundary = (error: unknown) => {
+  if (isTypeWithDataAsServerErrors(error)) {
+    const shouldUp = includeCode(error.data, codesToUp);
+    if (shouldUp) {
+      throw error.data;
+    }
+    return;
+  } else if (isMessage(error)) {
+    throw new Error(error.message);
+  }
+};
+
+export const includeCode = (error: ServerErrors, codes: ErrorCode[]) => {
+  return error.errors.some((err) => codes.includes(err.extensions.code));
+};
+
+export const joinErrors = (error: ServerErrors) => {
+  return error.errors.map((err) => err.message).join('\n');
+};
+
+export const isMessage = (error: unknown): error is { message: string } => {
+  if (typeof error !== 'object' || error === null) {
+    return false;
+  }
+
+  if ('message' in error && typeof (error as { message: unknown }).message === 'string') {
+    return true;
+  }
+
+  return false;
+};
 
 export const isTypeWithDataAsServerErrors = (error: unknown): error is { data: ServerErrors } => {
   if (typeof error !== 'object' || error === null) {

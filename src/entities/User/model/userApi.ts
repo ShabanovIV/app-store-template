@@ -4,6 +4,7 @@ import { AuthResult, SignUpBody, SignInBody } from '../types/user';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
+
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
   endpoints: (builder) => ({
     signup: builder.mutation<AuthResult, SignUpBody>({

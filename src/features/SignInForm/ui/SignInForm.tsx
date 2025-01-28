@@ -1,4 +1,5 @@
 import { Button, Form, FormProps, Input } from 'antd';
+import { isTypeWithDataAsServerErrors } from 'src/shared/api/errors';
 import { ErrorMessage } from 'src/shared/ui/ErrorMessage/ErrorMessage';
 import { useSignIn } from '../model/useSignIn';
 
@@ -8,7 +9,7 @@ type FieldType = {
 };
 
 const SignInForm: React.FC = () => {
-  const { signIn, isError } = useSignIn();
+  const { signIn, isLoading, isError, error } = useSignIn();
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     if (values.username && values.password) {
@@ -26,7 +27,16 @@ const SignInForm: React.FC = () => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      {isError && <ErrorMessage error="Error" />}
+      {isError && (
+        <ErrorMessage
+          error={
+            isTypeWithDataAsServerErrors(error)
+              ? error.data.errors.map((error) => error.message).join('\n')
+              : 'Unknown error.'
+          }
+        />
+      )}
+      {isLoading && <p>Loading...</p>}
       <Form.Item<FieldType>
         label="Username"
         name="username"
