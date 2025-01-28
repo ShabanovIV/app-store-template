@@ -1,6 +1,5 @@
-import { Button, Form, FormProps, Input } from 'antd';
-import { isTypeWithDataAsServerErrors } from 'src/shared/api/errors';
-import { ErrorMessage } from 'src/shared/ui/ErrorMessage/ErrorMessage';
+import { useEffect } from 'react';
+import { Button, Form, FormProps, Input, Spin } from 'antd';
 import { useSignIn } from '../model/useSignIn';
 
 type FieldType = {
@@ -9,7 +8,14 @@ type FieldType = {
 };
 
 const SignInForm: React.FC = () => {
-  const { signIn, isLoading, isError, error } = useSignIn();
+  const { signIn, isLoading, isFieldErrors, fieldErrors } = useSignIn();
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (isFieldErrors) {
+      form.setFields(fieldErrors);
+    }
+  }, [isFieldErrors, fieldErrors]);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     if (values.username && values.password) {
@@ -19,6 +25,7 @@ const SignInForm: React.FC = () => {
 
   return (
     <Form
+      form={form}
       name="basic"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
@@ -27,16 +34,6 @@ const SignInForm: React.FC = () => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      {isError && (
-        <ErrorMessage
-          error={
-            isTypeWithDataAsServerErrors(error)
-              ? error.data.errors.map((error) => error.message).join('\n')
-              : 'Unknown error.'
-          }
-        />
-      )}
-      {isLoading && <p>Loading...</p>}
       <Form.Item<FieldType>
         label="Username"
         name="username"
@@ -58,6 +55,7 @@ const SignInForm: React.FC = () => {
           Submit
         </Button>
       </Form.Item>
+      {isLoading && <Spin>Loading...</Spin>}
     </Form>
   );
 };

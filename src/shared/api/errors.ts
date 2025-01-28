@@ -52,6 +52,18 @@ export const upToErrBoundary = (error: unknown) => {
   }
 };
 
+export const getFormErrors = (error: unknown): { name: string; errors: string[] }[] => {
+  if (isTypeWithDataAsServerErrors(error)) {
+    return error.data.errors
+      .filter((err) => Boolean(err.fieldName))
+      .map((err) => ({
+        name: err.fieldName as string,
+        errors: [err.message],
+      }));
+  }
+  return [];
+};
+
 export const includeCode = (error: ServerErrors, codes: ErrorCode[]) => {
   return error.errors.some((err) => codes.includes(err.extensions.code));
 };

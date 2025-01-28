@@ -25,13 +25,13 @@ export class LocalErrorBoundary extends Component<
   };
 
   static getDerivedStateFromError(error: unknown): LocalErrorBoundaryState {
-    const codes: ErrorCode[] = [
+    const codesToThrow: ErrorCode[] = [
       ErrorCode.ERR_INCORRECT_EMAIL_OR_PASSWORD,
       ErrorCode.ERR_ACCOUNT_ALREADY_EXIST,
       ErrorCode.ERR_AUTH,
     ];
 
-    if (isServerErrors(error) && !includeCodes(error, codes)) {
+    if (isServerErrors(error) && !includeCodes(error, codesToThrow)) {
       throw new Error(joinErrors(error));
     }
 
