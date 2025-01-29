@@ -7,7 +7,7 @@ type FieldType = {
   password?: string;
 };
 
-const SignInForm: React.FC = () => {
+export const SignInForm: React.FC = () => {
   const { signIn, isLoading, isFieldErrors, fieldErrors } = useSignIn();
   const [form] = Form.useForm();
 
@@ -59,5 +59,3 @@ const SignInForm: React.FC = () => {
     </Form>
   );
 };
-
-export default SignInForm;

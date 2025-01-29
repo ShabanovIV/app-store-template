@@ -1,4 +1,4 @@
-import SignInForm from 'src/features/SignInForm/ui/SignInForm';
+import { SignInForm } from 'src/features/SignInForm';
 import { LocalErrorBoundary } from 'src/shared/ui/LocalErrorBoundary/LocalErrorBoundary';
 
 export const AuthPage: React.FC = () => {
