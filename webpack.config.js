@@ -87,7 +87,7 @@ export default (_, args) => {
       historyApiFallback: true,
     },
     performance: {
-      maxAssetSize: 512000,
+      maxAssetSize: 800000,
       maxEntrypointSize: 1024000,
     },
     optimization: {
