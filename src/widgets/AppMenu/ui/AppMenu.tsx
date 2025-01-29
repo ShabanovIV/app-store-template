@@ -1,6 +1,6 @@
 import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from 'src/features/Auth';
+import { useAuth } from 'src/entities/User';
 import { MENU_ROUTES, RouteTypes } from 'src/shared/config/routes';
 
 export const AppMenu: React.FC = () => {

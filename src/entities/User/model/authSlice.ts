@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { userApi } from 'src/entities/User';
+import { createSlice } from '@reduxjs/toolkit';
 import { getToken, removeToken, saveToken } from 'src/shared/lib/appLocalStorage';
+import { userApi } from '../model/userApi';
 
 interface AuthState {
   token: string | null;
@@ -14,13 +14,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setToken(state, action: PayloadAction<string | null>) {
-      state.token = action.payload;
-      if (action.payload) {
-        saveToken(action.payload);
-      }
-    },
-    clearToken(state) {
+    logout(state) {
       state.token = null;
       removeToken();
     },
@@ -38,6 +32,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setToken: setStateToken } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
 export const selectToken = (state: RootState) => state.auth.token;
