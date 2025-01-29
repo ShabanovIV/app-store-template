@@ -3,7 +3,7 @@ import { useSigninMutation } from 'src/entities/User';
 import { parseErrorAndThrow } from 'src/shared/api/errors';
 
 export const useSignIn = () => {
-  const [signin, { isLoading, isError, error }] = useSigninMutation();
+  const [signin, { isLoading, isSuccess, isError, error }] = useSigninMutation();
 
   const signIn = async (email: string, password: string) => {
     await signin({ email, password });
@@ -18,5 +18,6 @@ export const useSignIn = () => {
   return {
     signIn,
     isLoading,
+    isSuccess,
   };
 };

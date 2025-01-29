@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Card, Space, Typography, Divider } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SignInForm } from 'src/features/SignInForm';
 import { SignUpForm } from 'src/features/SignUpForm';
 import { LocalErrorBoundary } from 'src/shared/ui/LocalErrorBoundary/LocalErrorBoundary';
@@ -9,9 +10,16 @@ const { Title, Text } = Typography;
 
 export const AuthSwitcher: React.FC = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     setIsSignIn((prev) => !prev);
+  };
+
+  const handleSuccess = () => {
+    const from = location.state?.from || '/';
+    navigate(from, { replace: true });
   };
 
   return (
@@ -22,7 +30,11 @@ export const AuthSwitcher: React.FC = () => {
             {isSignIn ? 'Sign In' : 'Sign Up'}
           </Title>
 
-          {isSignIn ? <SignInForm /> : <SignUpForm />}
+          {isSignIn ? (
+            <SignInForm onSuccess={handleSuccess} />
+          ) : (
+            <SignUpForm onSuccess={handleSuccess} />
+          )}
 
           <Divider />
 

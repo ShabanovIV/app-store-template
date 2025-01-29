@@ -9,7 +9,6 @@ export const RouteTypes = {
 
 export type RouteType = (typeof RouteTypes)[keyof typeof RouteTypes];
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const MENU_ROUTES: {
   [key: string]: { path: string; title: string; type: RouteType; render: () => ReactNode };
 } = {
@@ -20,7 +19,12 @@ export const MENU_ROUTES: {
     type: RouteTypes.public,
     render: () => <AuthPage />,
   },
-  test: { path: '/test', title: 'Test', type: RouteTypes.public, render: () => <div>Test</div> },
+  test: {
+    path: '/test',
+    title: 'Test',
+    type: RouteTypes.private,
+    render: () => <div>Test redirect for private route</div>,
+  },
   profile: {
     path: '/profile',
     title: 'Profile',

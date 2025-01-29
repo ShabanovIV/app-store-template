@@ -1,14 +1,25 @@
+import { useEffect } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
 import { useSignIn } from '../model/useSignIn';
+
+interface SignInFormProps {
+  onSuccess: () => void;
+}
 
 type FieldType = {
   email?: string;
   password?: string;
 };
 
-export const SignInForm: React.FC = () => {
-  const { signIn, isLoading } = useSignIn();
+export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
+  const { signIn, isLoading, isSuccess } = useSignIn();
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (isSuccess) {
+      onSuccess();
+    }
+  }, [isSuccess]);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     if (values.email && values.password) {
