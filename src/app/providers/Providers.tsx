@@ -1,8 +1,8 @@
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import { appStore } from 'src/app/store/appStore';
-import { AppLayout } from 'src/widgets/AppLayout';
 import { AppErrorBoundary } from './AppErrorBoundary/AppErrorBoundary';
+import { AppLayout } from '../AppLayout';
 
 interface ProvidersProps {
   children: React.ReactNode;
