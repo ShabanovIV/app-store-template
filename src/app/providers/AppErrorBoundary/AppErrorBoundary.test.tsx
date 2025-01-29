@@ -1,6 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { AppErrorBoundary } from './AppErrorBoundary';
 
+const title = 'Something went wrong.';
+const titleButton = 'Try again';
+const errorMessage = 'Test error';
+
 const ErrorThrowingComponent = () => {
   throw new Error('Test error');
 };
@@ -15,9 +19,9 @@ describe('AppErrorBoundary', () => {
       </AppErrorBoundary>,
     );
 
-    expect(screen.getByText('Что-то пошло не так.')).toBeInTheDocument();
-    expect(screen.getByText('Test error')).toBeInTheDocument();
-    expect(screen.getByText('Попробовать снова')).toBeInTheDocument();
+    expect(screen.getByText(title)).toBeInTheDocument();
+    expect(screen.getByText(errorMessage)).toBeInTheDocument();
+    expect(screen.getByText(titleButton)).toBeInTheDocument();
 
     consoleErrorSpy.mockRestore();
   });
@@ -31,7 +35,7 @@ describe('AppErrorBoundary', () => {
       </AppErrorBoundary>,
     );
 
-    expect(screen.getByText('Что-то пошло не так.')).toBeInTheDocument();
+    expect(screen.getByText(title)).toBeInTheDocument();
 
     rerender(
       <AppErrorBoundary>
@@ -39,9 +43,9 @@ describe('AppErrorBoundary', () => {
       </AppErrorBoundary>,
     );
 
-    fireEvent.click(screen.getByText('Попробовать снова'));
+    fireEvent.click(screen.getByText(titleButton));
 
-    expect(screen.queryByText('Что-то пошло не так.')).not.toBeInTheDocument();
+    expect(screen.queryByText(title)).not.toBeInTheDocument();
     expect(screen.getByText('No errors here!')).toBeInTheDocument();
 
     consoleErrorSpy.mockRestore();

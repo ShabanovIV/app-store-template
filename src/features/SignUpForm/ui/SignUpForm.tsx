@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
 import { useSignUp } from '../model/useSignUp';
 
@@ -8,14 +7,8 @@ type FieldType = {
 };
 
 export const SignUpForm: React.FC = () => {
-  const { signUp, isLoading, isFieldErrors, fieldErrors } = useSignUp();
+  const { signUp, isLoading } = useSignUp();
   const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (isFieldErrors) {
-      form.setFields(fieldErrors);
-    }
-  }, [isFieldErrors, fieldErrors]);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     if (values.email && values.password) {
@@ -27,6 +20,7 @@ export const SignUpForm: React.FC = () => {
     <Form
       form={form}
       name="SignUpForm"
+      labelAlign="left"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
@@ -34,7 +28,6 @@ export const SignUpForm: React.FC = () => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      <h1>Join</h1>
       <Form.Item<FieldType>
         label="Email"
         name="email"

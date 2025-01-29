@@ -1,33 +1,27 @@
-import { useEffect } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
 import { useSignIn } from '../model/useSignIn';
 
 type FieldType = {
-  username?: string;
+  email?: string;
   password?: string;
 };
 
 export const SignInForm: React.FC = () => {
-  const { signIn, isLoading, isFieldErrors, fieldErrors } = useSignIn();
+  const { signIn, isLoading } = useSignIn();
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    if (isFieldErrors) {
-      form.setFields(fieldErrors);
-    }
-  }, [isFieldErrors, fieldErrors]);
-
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    if (values.username && values.password) {
-      signIn(values.username, values.password);
+    if (values.email && values.password) {
+      signIn(values.email, values.password);
     }
   };
 
   return (
     <Form
       form={form}
-      name="basic"
+      name="SignInForm"
       labelCol={{ span: 8 }}
+      labelAlign="left"
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
       initialValues={{ remember: true }}
@@ -35,8 +29,8 @@ export const SignInForm: React.FC = () => {
       autoComplete="off"
     >
       <Form.Item<FieldType>
-        label="Username"
-        name="username"
+        label="Email"
+        name="email"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input />

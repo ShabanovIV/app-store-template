@@ -27,28 +27,11 @@ export enum ErrorCode {
   ERR_INTERNAL_SERVER = 'ERR_INTERNAL_SERVER',
 }
 
-const codesToUp: ErrorCode[] = [
-  ErrorCode.ERR_INCORRECT_EMAIL_OR_PASSWORD,
-  ErrorCode.ERR_ACCOUNT_ALREADY_EXIST,
-  ErrorCode.ERR_FIELD_REQUIRED,
-  ErrorCode.ERR_NOT_VALID,
-  ErrorCode.ERR_AUTH,
-  ErrorCode.ERR_NO_FILES,
-  ErrorCode.ERR_NOT_ALLOWED,
-  ErrorCode.ERR_NOT_FOUND,
-  ErrorCode.ERR_INVALID_QUERY_PARAMS,
-  ErrorCode.ERR_INTERNAL_SERVER,
-];
-
-export const upToErrBoundary = (error: unknown) => {
+export const parseErrorAndThrow = (error: unknown) => {
   if (isTypeWithDataAsServerErrors(error)) {
-    const shouldUp = includeCode(error.data, codesToUp);
-    if (shouldUp) {
-      throw error.data;
-    }
-    return;
-  } else if (isMessage(error)) {
-    throw new Error(error.message);
+    throw error.data;
+  } else {
+    throw error;
   }
 };
 

@@ -1,4 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import { Button } from 'antd';
+import { isMessage, isServerErrors, joinErrors } from 'src/shared/api/errors';
 import styles from './AppErrorBoundary.module.scss';
 
 interface AppErrorBoundaryProps {
@@ -16,11 +18,17 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
     error: null,
   };
 
-  static getDerivedStateFromError(error: Error): AppErrorBoundaryState {
-    return { hasError: true, error };
+  static getDerivedStateFromError(error: unknown): AppErrorBoundaryState {
+    if (isServerErrors(error)) {
+      return { hasError: true, error: new Error(joinErrors(error)) };
+    } else if (isMessage(error)) {
+      return { hasError: true, error: new Error(error.message) };
+    }
+
+    return { hasError: true, error: new Error('Unknown error.') };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: unknown, errorInfo: ErrorInfo) {
     console.error('AppErrorBoundary caught an error:', error, errorInfo);
   }
 
@@ -32,9 +40,9 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
     if (this.state.hasError) {
       return (
         <div className={styles.errorBoundary}>
-          <h1>Что-то пошло не так.</h1>
+          <h1>Something went wrong.</h1>
           <p>{this.state.error?.message}</p>
-          <button onClick={this.handleRetry}>Попробовать снова</button>
+          <Button onClick={this.handleRetry}>Try again</Button>
         </div>
       );
     }

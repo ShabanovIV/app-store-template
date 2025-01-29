@@ -1,10 +1,12 @@
 import { Component, ReactNode } from 'react';
+import { Alert } from 'antd';
 import {
   ErrorCode,
   includeCode as includeCodes,
   isServerErrors,
   joinErrors,
 } from 'src/shared/api/errors';
+import styles from './LocalErrorBoundary.module.scss';
 
 interface LocalErrorBoundaryProps {
   children: ReactNode;
@@ -25,14 +27,12 @@ export class LocalErrorBoundary extends Component<
   };
 
   static getDerivedStateFromError(error: unknown): LocalErrorBoundaryState {
-    const codesToThrow: ErrorCode[] = [
-      ErrorCode.ERR_INCORRECT_EMAIL_OR_PASSWORD,
-      ErrorCode.ERR_ACCOUNT_ALREADY_EXIST,
-      ErrorCode.ERR_AUTH,
-    ];
+    const codesLocal: ErrorCode[] = Object.values(ErrorCode).filter(
+      (code) => code !== ErrorCode.ERR_INTERNAL_SERVER,
+    );
 
-    if (isServerErrors(error) && !includeCodes(error, codesToThrow)) {
-      throw new Error(joinErrors(error));
+    if (isServerErrors(error) && !includeCodes(error, codesLocal)) {
+      throw error;
     }
 
     const message = isServerErrors(error) ? joinErrors(error) : 'Unknown error.';
@@ -45,16 +45,20 @@ export class LocalErrorBoundary extends Component<
   };
 
   render() {
-    if (this.state.hasError) {
-      return (
-        <div>
-          <p>{this.state.error?.message || 'Unknown error.'}</p>
-          <button onClick={this.handleDismiss}>Закрыть</button>
-          {this.props.children}
-        </div>
-      );
-    }
-
-    return this.props.children;
+    return (
+      <div className={styles.errorWrapper}>
+        {this.state.hasError && (
+          <Alert
+            className={styles.errorAlert}
+            closable
+            onClose={this.handleDismiss}
+            type="error"
+            message={this.state.error?.message || 'Unknown error.'}
+            showIcon
+          />
+        )}
+        {this.props.children}
+      </div>
+    );
   }
 }

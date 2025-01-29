@@ -1,10 +1,5 @@
-import { SignInForm } from 'src/features/SignInForm';
-import { LocalErrorBoundary } from 'src/shared/ui/LocalErrorBoundary/LocalErrorBoundary';
+import { AuthSwitcher } from 'src/widgets/AuthSwitcher/';
 
 export const AuthPage: React.FC = () => {
-  return (
-    <LocalErrorBoundary>
-      <SignInForm />
-    </LocalErrorBoundary>
-  );
+  return <AuthSwitcher />;
 };
