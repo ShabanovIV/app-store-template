@@ -8,6 +8,14 @@ export type User = {
   email: string;
 };
 
+export type Profile = {
+  id: string;
+  name: string;
+  email: string;
+  signUpDate: Date;
+  commandId: string;
+};
+
 export type SignUpBody = {
   email: string;
   password: string;
@@ -16,4 +24,13 @@ export type SignUpBody = {
 export type SignInBody = {
   email: string;
   password: string;
+};
+
+export type UpdateProfileBody = {
+  name: string;
+};
+
+export type ChangePasswordBody = {
+  password: string;
+  newPassword: string;
 };
