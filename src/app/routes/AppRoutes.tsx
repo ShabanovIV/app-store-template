@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { Button, Result } from 'antd';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/entities/User';
 import {
   getHiddenRoutes,
@@ -60,6 +60,7 @@ const renderHiddenRoutes = (isAuth: boolean) => {
 };
 
 const renderPage = (path: string) => {
+  const navigate = useNavigate();
   const page = PAGES.find((page) => page.path === path);
   return page ? (
     page.element
@@ -68,7 +69,11 @@ const renderPage = (path: string) => {
       status="404"
       title="404"
       subTitle="Sorry, the page you visited does not exist."
-      extra={<Button type="primary">Back Home</Button>}
+      extra={
+        <Button onClick={() => navigate(ROUTES.home.path)} type="primary">
+          Back Home
+        </Button>
+      }
     />
   );
 };
