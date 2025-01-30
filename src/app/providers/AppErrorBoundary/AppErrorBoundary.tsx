@@ -1,7 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-import { Button } from 'antd';
+import { Button, Result } from 'antd';
 import { isMessage, isServerErrors, joinErrors } from 'src/shared/api/errors';
-import styles from './AppErrorBoundary.module.scss';
 
 interface AppErrorBoundaryProps {
   children: ReactNode;
@@ -39,11 +38,16 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
   render() {
     if (this.state.hasError) {
       return (
-        <div className={styles.errorBoundary}>
-          <h1>Something went wrong.</h1>
-          <p>{this.state.error?.message}</p>
-          <Button onClick={this.handleRetry}>Try again</Button>
-        </div>
+        <Result
+          status="500"
+          title="500"
+          subTitle="Something went wrong."
+          extra={
+            <Button onClick={this.handleRetry} type="primary">
+              Try again
+            </Button>
+          }
+        />
       );
     }
 

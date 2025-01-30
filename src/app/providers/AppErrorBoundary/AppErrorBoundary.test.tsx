@@ -3,7 +3,6 @@ import { AppErrorBoundary } from './AppErrorBoundary';
 
 const title = 'Something went wrong.';
 const titleButton = 'Try again';
-const errorMessage = 'Test error';
 
 const ErrorThrowingComponent = () => {
   throw new Error('Test error');
@@ -20,7 +19,6 @@ describe('AppErrorBoundary', () => {
     );
 
     expect(screen.getByText(title)).toBeInTheDocument();
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
     expect(screen.getByText(titleButton)).toBeInTheDocument();
 
     consoleErrorSpy.mockRestore();
