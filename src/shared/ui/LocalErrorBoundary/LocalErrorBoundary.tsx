@@ -31,7 +31,7 @@ export class LocalErrorBoundary extends Component<
       (code) => code !== ErrorCode.ERR_INTERNAL_SERVER,
     );
 
-    if (isServerErrors(error) && !includeCodes(error, codesLocal)) {
+    if ((isServerErrors(error) && !includeCodes(error, codesLocal)) || !isServerErrors(error)) {
       throw error;
     }
 
