@@ -1,4 +1,17 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding-inline: 1rem;
+}
+
+.menuContainer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.userMenu {
+  display: flex;
+  margin-left: auto;
 }

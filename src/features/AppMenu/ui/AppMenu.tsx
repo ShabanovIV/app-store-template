@@ -20,6 +20,12 @@ export const AppMenu: React.FC = () => {
   });
 
   return (
-    <Menu theme="dark" mode="horizontal" selectedKeys={[location.pathname]} items={menuItems} />
+    <Menu
+      theme="dark"
+      mode="horizontal"
+      style={{ flex: 1, width: '100%', minWidth: 0, overflow: 'visible' }}
+      selectedKeys={[location.pathname]}
+      items={menuItems}
+    />
   );
 };

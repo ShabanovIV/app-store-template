@@ -15,13 +15,13 @@ export const ROUTES = {
   },
   test: {
     path: '/test',
-    title: 'Test',
+    title: 'Catalog',
     type: RouteTypes.private as RouteType,
     isMenuItem: true,
   },
   auth: {
     path: '/auth',
-    title: 'Auth',
+    title: 'Sign In',
     type: RouteTypes.public as RouteType,
     isMenuItem: false,
   },
@@ -29,7 +29,7 @@ export const ROUTES = {
     path: '/profile',
     title: 'Profile',
     type: RouteTypes.privateHidden as RouteType,
-    isMenuItem: true,
+    isMenuItem: false,
   },
 } as const;
 

@@ -4,4 +4,4 @@ export * from './model/userApi';
 export * from './model/profileApi';
 export * from './hooks/useAuth';
 export * from './types/user';
-export * from './ui/UserCard';
+export * from './ui/UserMenu';

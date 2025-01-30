@@ -1,5 +1,7 @@
-// TODO: Реализовать ProfilePage.tsx для отображения страницы профиля
-// 1. Создать компонент ProfilePage с основной структурой страницы.
-// 2. Импортировать и подключить элементы интерфейса из ui (например, ProfileInfo, EditProfileForm).
-// 3. Добавить обработку данных (например, через model или вызовы API для загрузки данных профиля).
-// 4. Настроить стили или классы для контейнера страницы.
+import { ProfileSwitcher } from 'src/widgets/ProfileSwitcher/';
+
+const ProfilePage: React.FC = () => {
+  return <ProfileSwitcher />;
+};
+
+export default ProfilePage;

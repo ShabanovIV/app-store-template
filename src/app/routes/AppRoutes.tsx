@@ -12,11 +12,12 @@ import PrivateRoute from './PrivateRoute';
 
 const HomePage = lazy(() => import('src/pages/HomePage/HomePage'));
 const AuthPage = lazy(() => import('src/pages/AuthPage/AuthPage'));
+const ProfilePage = lazy(() => import('src/pages/ProfilePage/ProfilePage'));
 
 const PAGES = [
   { path: ROUTES.home.path, element: <HomePage /> },
   { path: ROUTES.auth.path, element: <AuthPage /> },
-  { path: ROUTES.profile.path, element: <div>Profile</div> },
+  { path: ROUTES.profile.path, element: <ProfilePage /> },
 ];
 
 const AppRoutes = () => {
