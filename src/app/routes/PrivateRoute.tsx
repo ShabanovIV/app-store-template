@@ -8,7 +8,7 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const isAuth = useAuth();
+  const { isAuth } = useAuth();
   const location = useLocation();
 
   if (!isAuth) {

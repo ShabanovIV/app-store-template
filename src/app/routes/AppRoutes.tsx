@@ -20,7 +20,7 @@ const PAGES = [
 ];
 
 const AppRoutes = () => {
-  const isAuth = useAuth();
+  const { isAuth } = useAuth();
 
   return (
     <Routes>

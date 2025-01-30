@@ -5,7 +5,7 @@ import { getHiddenRoutes, getWithoutHiddenRoutes } from 'src/shared/config/route
 
 export const AppMenu: React.FC = () => {
   const location = useLocation();
-  const isAuth = useAuth();
+  const { isAuth } = useAuth();
 
   const visibleRoutes = getWithoutHiddenRoutes();
   const routes = [...visibleRoutes, ...(isAuth ? getHiddenRoutes() : [])].filter(
