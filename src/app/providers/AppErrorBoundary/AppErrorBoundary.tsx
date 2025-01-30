@@ -40,7 +40,6 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
       return (
         <Result
           status="500"
-          title="500"
           subTitle="Something went wrong."
           extra={
             <Button onClick={this.handleRetry} type="primary">

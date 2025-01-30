@@ -12,7 +12,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const location = useLocation();
 
   if (!isAuth) {
-    return <Navigate to={ROUTES.auth.path} state={{ from: location }} replace />;
+    return <Navigate to={ROUTES.auth.path} state={{ from: location.pathname }} replace />;
   }
 
   return children;
