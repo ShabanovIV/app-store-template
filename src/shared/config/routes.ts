@@ -29,7 +29,7 @@ export const ROUTES = {
     path: '/profile',
     title: 'Profile',
     type: RouteTypes.privateHidden as RouteType,
-    isMenuItem: false,
+    isMenuItem: true,
   },
 } as const;
 

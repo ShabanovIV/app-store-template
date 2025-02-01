@@ -1,31 +1,44 @@
-import { Menu } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { LogoutOutlined } from '@ant-design/icons';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/entities/User';
-import { getHiddenRoutes, getWithoutHiddenRoutes } from 'src/shared/config/routes';
+import { logout } from 'src/entities/User/model/authSlice';
+import { getHiddenRoutes, getWithoutHiddenRoutes, ROUTES } from 'src/shared/config/routes';
+import { useAppDispatch } from 'src/shared/hooks/store';
+import styles from './AppMenu.module.scss';
 
 export const AppMenu: React.FC = () => {
-  const location = useLocation();
   const { isAuth } = useAuth();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const visibleRoutes = getWithoutHiddenRoutes();
   const routes = [...visibleRoutes, ...(isAuth ? getHiddenRoutes() : [])].filter(
     (route) => route.isMenuItem,
   );
 
-  const menuItems = routes.map((route) => {
-    return {
-      key: route.path,
-      label: <Link to={route.path}>{route.title}</Link>,
-    };
-  });
+  const handleLogout = () => {
+    if (isAuth) {
+      dispatch(logout());
+      navigate(ROUTES.auth.path);
+    }
+  };
 
   return (
-    <Menu
-      theme="dark"
-      mode="horizontal"
-      style={{ flex: 1, width: '100%', minWidth: 0, overflow: 'visible' }}
-      selectedKeys={[location.pathname]}
-      items={menuItems}
-    />
+    <ul className={styles.menu}>
+      {routes.map((route) => {
+        return (
+          <li className={styles.item} key={route.path}>
+            <Link to={route.path}>{route.title}</Link>
+          </li>
+        );
+      })}
+      <li className={styles.item} key="signin-signout" onClick={handleLogout}>
+        {isAuth ? (
+          <LogoutOutlined style={{ cursor: 'pointer' }} />
+        ) : (
+          <Link to={ROUTES.auth.path}>{ROUTES.auth.title}</Link>
+        )}
+      </li>
+    </ul>
   );
 };

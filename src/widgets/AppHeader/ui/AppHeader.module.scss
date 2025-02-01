@@ -1,17 +1,14 @@
 .header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  background: #fff;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding-inline: 1rem;
-}
-
-.menuContainer {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.userMenu {
-  display: flex;
-  margin-left: auto;
+  align-items: center;
+  padding: 0 3%;
+  box-shadow: 0 0.313rem 0.626rem rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }

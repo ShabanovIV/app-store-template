@@ -1,6 +1,5 @@
 import React from 'react';
-import { Layout } from 'antd';
-import { Content, Footer } from 'antd/es/layout/layout';
+import { AppContent } from 'src/widgets/AppContent';
 import { AppHeader } from 'src/widgets/AppHeader';
 import styles from './AppLayout.module.scss';
 
@@ -10,10 +9,9 @@ interface LayoutProps {
 
 export const AppLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <Layout className={styles.layout}>
+    <div className={styles.layout}>
       <AppHeader />
-      <Content className={styles.content}>{children}</Content>
-      <Footer className={styles.footer}>Footer content</Footer>
-    </Layout>
+      <AppContent>{children}</AppContent>
+    </div>
   );
 };
