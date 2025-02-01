@@ -49,7 +49,14 @@ export default (_, args) => {
                 },
               },
             },
-            'sass-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sassOptions: {
+                  includePaths: ['src/shared/styles'],
+                },
+              },
+            },
           ],
         },
         {

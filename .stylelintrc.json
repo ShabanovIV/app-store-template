@@ -1,10 +1,10 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-scss"],
+  "extends": ["stylelint-config-standard", "stylelint-scss", "stylelint-config-css-modules"],
   "rules": {
     "alpha-value-notation": null,
     "color-function-notation": null,
     "selector-max-id": 0,
-    "selector-class-pattern": null,
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9]+$",
     "unit-allowed-list": [
       "rem",
       "em",
@@ -19,13 +19,12 @@
       "ms",
       "s"
     ],
-    "unit-no-unknown": true
+    "unit-no-unknown": true,
+    "scss/load-no-partial-leading-underscore": true,
+    "scss/load-partial-extension": "always",
+    "scss/selector-no-redundant-nesting-selector": true,
+    "scss/at-extend-no-missing-placeholder": true
   },
-  "ignoreFiles": ["dist/**/*"],
-  "defaultSeverity": "warning",
-  "overrides": [
-    {
-      "files": ["**/*.module.scss"]
-    }
-  ]
+  "ignoreFiles": ["dist/**/*", "node_modules/**/*"],
+  "defaultSeverity": "warning"
 }

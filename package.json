@@ -54,6 +54,7 @@
     "sass-loader": "^16.0.4",
     "style-loader": "^4.0.0",
     "stylelint": "^16.13.2",
+    "stylelint-config-css-modules": "^4.4.0",
     "stylelint-config-standard": "^37.0.0",
     "stylelint-scss": "^6.10.1",
     "ts-jest": "^29.2.5",
