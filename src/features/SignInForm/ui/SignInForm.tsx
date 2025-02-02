@@ -49,7 +49,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
           {isLoading ? <Spin /> : 'Sign In'}
         </Button>
       </Form.Item>
-      {isLoading && <Spin>Loading...</Spin>}
     </Form>
   );
 };
