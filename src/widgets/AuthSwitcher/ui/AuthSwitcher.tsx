@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Button, Card, Space, Typography, Divider } from 'antd';
+import { Button, Space, Typography, Divider } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SignInForm } from 'src/features/SignInForm';
 import { SignUpForm } from 'src/features/SignUpForm';
-import { LocalErrorBoundary } from 'src/shared/ui/LocalErrorBoundary/LocalErrorBoundary';
 import styles from './AuthSwitcher.module.scss';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 export const AuthSwitcher: React.FC = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -23,31 +22,29 @@ export const AuthSwitcher: React.FC = () => {
   };
 
   return (
-    <Space direction="vertical" align="center" className={styles.container}>
-      <LocalErrorBoundary key={isSignIn ? 'signin_err_boundary' : 'signup_err_boundary'}>
-        <Card className={styles.authCard}>
-          <Title level={3} className={styles.title}>
-            {isSignIn ? 'Sign In' : 'Sign Up'}
-          </Title>
+    <div className={styles.authCard}>
+      <h4 className={styles.title}>
+        {isSignIn ? 'Log in to your account' : 'Enter your email and create a password'}
+      </h4>
 
-          {isSignIn ? (
-            <SignInForm onSuccess={handleSuccess} />
-          ) : (
-            <SignUpForm onSuccess={handleSuccess} />
-          )}
+      <Divider />
 
-          <Divider />
+      {isSignIn ? (
+        <SignInForm onSuccess={handleSuccess} />
+      ) : (
+        <SignUpForm onSuccess={handleSuccess} />
+      )}
 
-          <Space direction="vertical" align="center" style={{ width: '100%' }}>
-            <Text type="secondary">
-              {isSignIn ? "Don't have an account?" : 'Already have an account?'}
-            </Text>
-            <Button type="link" onClick={handleClick}>
-              {isSignIn ? 'Join' : 'Sign In'}
-            </Button>
-          </Space>
-        </Card>
-      </LocalErrorBoundary>
-    </Space>
+      <Divider />
+
+      <Space direction="vertical" align="center" style={{ width: '100%' }}>
+        <Text type="secondary">
+          {isSignIn ? "Don't have an account?" : 'Already have an account?'}
+        </Text>
+        <Button type="link" onClick={handleClick}>
+          {isSignIn ? 'Join' : 'Sign In'}
+        </Button>
+      </Space>
+    </div>
   );
 };

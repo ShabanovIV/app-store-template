@@ -1,19 +1,17 @@
 import { useEffect } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
+import { useSignUpRules } from '../lib/useSignUpRules';
 import { useSignUp } from '../model/useSignUp';
+import { FieldType } from '../types/fields';
 
 interface SignUpFormProps {
   onSuccess: () => void;
 }
 
-type FieldType = {
-  email?: string;
-  password?: string;
-};
-
 export const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess }) => {
-  const { signUp, isLoading, isSuccess } = useSignUp();
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<FieldType>();
+  const getRules = useSignUpRules(form);
+  const { signUp, errorElement, isLoading, isSuccess } = useSignUp(form);
 
   useEffect(() => {
     if (isSuccess) {
@@ -34,33 +32,27 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess }) => {
       labelAlign="left"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
       autoComplete="off"
     >
-      <Form.Item<FieldType>
-        label="Email"
-        name="email"
-        rules={[{ required: true, message: 'Please input your email!' }]}
-      >
+      {errorElement}
+      <Form.Item<FieldType> label="Email" name="email" rules={getRules('email')}>
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType>
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
+      <Form.Item<FieldType> label="Password" name="password" rules={getRules('password')}>
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item<FieldType> label="Confirm" name="confirm" rules={getRules('confirm')}>
         <Input.Password />
       </Form.Item>
 
       <Form.Item label={null}>
-        <Button type="primary" htmlType="submit">
-          Submit
+        <Button disabled={isLoading} style={{ width: '100%' }} type="primary" htmlType="submit">
+          {isLoading ? <Spin tip={<div>Loading...</div>} /> : 'Join'}
         </Button>
       </Form.Item>
-      {isLoading && <Spin>Loading...</Spin>}
     </Form>
   );
 };

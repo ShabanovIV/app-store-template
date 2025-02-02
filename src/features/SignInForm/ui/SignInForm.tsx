@@ -1,19 +1,17 @@
 import { useEffect } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
+import { Fields, useRules } from 'src/shared/lib/formValidation/useRules';
 import { useSignIn } from '../model/useSignIn';
+import { FieldType } from '../types/fields';
 
 interface SignInFormProps {
   onSuccess: () => void;
 }
 
-type FieldType = {
-  email?: string;
-  password?: string;
-};
-
 export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
-  const { signIn, isLoading, isSuccess } = useSignIn();
   const [form] = Form.useForm();
+  const getRules = useRules();
+  const { signIn, errorElement, isLoading, isSuccess } = useSignIn(form);
 
   useEffect(() => {
     if (isSuccess) {
@@ -34,30 +32,21 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
       labelCol={{ span: 8 }}
       labelAlign="left"
       wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
       onFinish={onFinish}
       autoComplete="off"
     >
-      <Form.Item<FieldType>
-        label="Email"
-        name="email"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
+      {errorElement}
+      <Form.Item<FieldType> label="Email" name="email" rules={getRules(Fields.email)}>
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType>
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
+      <Form.Item<FieldType> label="Password" name="password" rules={getRules(Fields.password)}>
         <Input.Password />
       </Form.Item>
 
       <Form.Item label={null}>
-        <Button type="primary" htmlType="submit">
-          Submit
+        <Button style={{ width: '100%' }} type="primary" htmlType="submit">
+          Sign In
         </Button>
       </Form.Item>
       {isLoading && <Spin>Loading...</Spin>}

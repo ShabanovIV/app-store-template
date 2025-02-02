@@ -1,6 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { Button, Result } from 'antd';
-import { isMessage, isServerErrors, joinErrors } from 'src/shared/api/errors';
+import { isMessage, isServerErrors } from 'src/shared/api/errors/errorGuards';
+import { joinErrors } from 'src/shared/api/errors/errorParser';
 
 interface AppErrorBoundaryProps {
   children: ReactNode;

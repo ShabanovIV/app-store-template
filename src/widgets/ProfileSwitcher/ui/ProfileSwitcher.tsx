@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Button, Card, Space, Typography, Divider } from 'antd';
-import { ProfileForm, ProfilePwdForm } from 'src/features/Profile';
-import { LocalErrorBoundary } from 'src/shared/ui/LocalErrorBoundary/LocalErrorBoundary';
+import { Button, Space, Typography, Divider } from 'antd';
+import { ProfileForm } from 'src/features/ProfileForm';
+import { ProfilePwdForm } from 'src/features/ProfilePwdForm';
 import styles from './ProfileSwitcher.module.scss';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 export const ProfileSwitcher: React.FC = () => {
   const [isProfile, setIsProfile] = useState(true);
@@ -14,25 +14,19 @@ export const ProfileSwitcher: React.FC = () => {
   };
 
   return (
-    <Space direction="vertical" align="center" className={styles.container}>
-      <LocalErrorBoundary key={isProfile ? 'profile_err_boundary' : 'password_err_boundary'}>
-        <Card className={styles.profileCard}>
-          <Title level={3} className={styles.title}>
-            {isProfile ? 'Profile' : 'Change Password'}
-          </Title>
+    <div className={styles.profileCard}>
+      <h4 className={styles.title}>{isProfile ? 'Personal data' : 'Password change'}</h4>
 
-          {isProfile ? <ProfileForm /> : <ProfilePwdForm />}
+      {isProfile ? <ProfileForm /> : <ProfilePwdForm />}
 
-          <Divider />
+      <Divider />
 
-          <Space direction="vertical" align="center" style={{ width: '100%' }}>
-            <Text type="secondary">{isProfile ? 'Want to change your password?' : ''}</Text>
-            <Button type="link" onClick={handleClick}>
-              {isProfile ? 'Change Password' : 'Back to Profile'}
-            </Button>
-          </Space>
-        </Card>
-      </LocalErrorBoundary>
-    </Space>
+      <Space direction="vertical" align="center" style={{ width: '100%' }}>
+        <Text type="secondary">{isProfile ? 'Want to change your password?' : ''}</Text>
+        <Button type="link" onClick={handleClick}>
+          {isProfile ? 'Password change' : 'Back to Profile'}
+        </Button>
+      </Space>
+    </div>
   );
 };

@@ -1,22 +1,19 @@
-import { useEffect } from 'react';
+import { FormInstance } from 'antd';
 import { useSigninMutation } from 'src/entities/User';
-import { parseErrorAndThrow } from 'src/shared/api/errors';
+import { useErrorHandler } from 'src/shared/api/errors/useErrorHandler';
+import { FieldType } from '../types/fields';
 
-export const useSignIn = () => {
-  const [signin, { isLoading, isSuccess, isError, error }] = useSigninMutation();
+export const useSignIn = (form: FormInstance<FieldType>) => {
+  const [signin, { isLoading, isSuccess, error }] = useSigninMutation();
+  const { errorElement } = useErrorHandler<FieldType>({ form, error });
 
   const signIn = async (email: string, password: string) => {
     await signin({ email, password });
   };
 
-  useEffect(() => {
-    if (isError && error) {
-      parseErrorAndThrow(error);
-    }
-  }, [isError, error]);
-
   return {
     signIn,
+    errorElement,
     isLoading,
     isSuccess,
   };

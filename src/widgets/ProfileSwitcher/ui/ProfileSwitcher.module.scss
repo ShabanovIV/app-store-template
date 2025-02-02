@@ -1,15 +1,13 @@
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
+@use 'src/shared/styles/global.module.scss' as global;
 
 .profileCard {
-  width: 25rem;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
-  background-color: #fff;
+  @extend %card;
+
+  width: 35rem;
+  height: 24rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .title {
