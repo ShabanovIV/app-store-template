@@ -46,7 +46,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
 
       <Form.Item label={null}>
         <Button style={{ width: '100%' }} type="primary" htmlType="submit">
-          Sign In
+          {isLoading ? <Spin /> : 'Sign In'}
         </Button>
       </Form.Item>
       {isLoading && <Spin>Loading...</Spin>}
