@@ -1,21 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { API_BASE_URL } from 'src/shared/config/apiConfig';
-import { selectToken } from './authSlice';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from 'src/shared/api/baseQuery';
 import { ChangePasswordBody, Profile, UpdateProfileBody } from '../types/user';
 
 export const profileApi = createApi({
   reducerPath: 'profileApi',
-
-  baseQuery: fetchBaseQuery({
-    baseUrl: API_BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = selectToken(getState() as RootState);
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     profile: builder.query<Profile, void>({
       query: () => ({
