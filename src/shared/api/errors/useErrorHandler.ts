@@ -3,8 +3,8 @@ import { FormInstance, message } from 'antd';
 import { extractFormErrors, extractWithoutFiledErrors, throwIfGlobalError } from './errorParser';
 
 export interface UseErrorHandlerProps<TFields> {
-  form: FormInstance<TFields>;
   error: unknown;
+  form?: FormInstance<TFields>;
 }
 
 export const useErrorHandler = <TFields>({ form, error }: UseErrorHandlerProps<TFields>) => {
@@ -14,7 +14,9 @@ export const useErrorHandler = <TFields>({ form, error }: UseErrorHandlerProps<T
     if (error) {
       throwIfGlobalError(error);
 
-      form.setFields(extractFormErrors(error));
+      if (form) {
+        form.setFields(extractFormErrors(error));
+      }
 
       const joinedMessage = extractWithoutFiledErrors(error);
       if (joinedMessage) {
