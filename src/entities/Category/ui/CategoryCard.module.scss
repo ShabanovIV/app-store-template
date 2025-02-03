@@ -1,0 +1,11 @@
+@use 'src/shared/styles/global.module.scss' as global;
+
+.categoryCard {
+  @extend %card;
+
+  width: 15rem;
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
