@@ -1,0 +1,41 @@
+.list {
+  background-color: transparent;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.listGrid {
+  background-color: transparent;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: auto;
+  gap: 20px;
+  justify-content: center;
+}
+
+.listItem {
+  background-color: transparent;
+  margin-bottom: 5px;
+
+  &:nth-child(odd) {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  &:nth-child(even) {
+    animation: fadeIn 1s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
