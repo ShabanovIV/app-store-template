@@ -7,7 +7,7 @@ export type Category = {
   commandId: string;
 };
 
-export type Filters = {
+export type CategoryFilters = {
   name?: string;
   ids?: string[];
   pagination?: {

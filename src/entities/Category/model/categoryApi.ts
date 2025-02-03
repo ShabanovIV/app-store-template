@@ -1,14 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from 'src/shared/api/baseQuery';
 import { convertToUrlSearchParams } from 'src/shared/lib/url/convertToUrlParams';
-import { Category, Result, CreateBody, Filters, UpdateBody } from '../types/category';
+import { Category, Result, CreateBody, CategoryFilters, UpdateBody } from '../types/category';
 
 export const categoryApi = createApi({
   reducerPath: 'categoryApi',
   baseQuery,
   endpoints: (builder) => ({
-    getCategories: builder.query<Result, Filters>({
-      query: (filters: Filters) => {
+    getCategories: builder.query<Result, CategoryFilters>({
+      query: (filters: CategoryFilters) => {
         const params = convertToUrlSearchParams(filters);
         return {
           url: '/categories',

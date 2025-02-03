@@ -4,7 +4,6 @@ import styles from './RenderList.module.scss';
 export interface IRenderItem {
   key: string;
   render: () => ReactNode;
-  onButtonEditClick?: () => void;
 }
 
 export interface IRenderListProps {

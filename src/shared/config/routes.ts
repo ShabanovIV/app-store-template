@@ -13,8 +13,8 @@ export const ROUTES = {
     type: RouteTypes.public as RouteType,
     isMenuItem: true,
   },
-  test: {
-    path: '/test',
+  category: {
+    path: '/catalog',
     title: 'Catalog',
     type: RouteTypes.private as RouteType,
     isMenuItem: true,

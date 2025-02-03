@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Space } from 'antd';
+import { Button, Space } from 'antd';
 import styles from './CategoryCard.module.scss';
 import { Category } from '../types/category';
 
@@ -16,13 +16,16 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
   onRemove,
   onEdit,
 }) => {
+  const handleClick = (): void => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
-    <Card
-      className={styles.categoryCard}
-      title={category.name}
-      style={{ cursor: onClick ? 'pointer' : 'default' }}
-      onClick={onClick}
-    >
+    <div className={styles.category} onClick={handleClick}>
+      {category.photo && <img src={category.photo} alt={category.name} />}
+      <h3>{category.name}</h3>
       <Space>
         {onEdit && <Button onClick={onEdit}>Edit</Button>}
         {onRemove && (
@@ -31,6 +34,6 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           </Button>
         )}
       </Space>
-    </Card>
+    </div>
   );
 };
