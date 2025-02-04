@@ -1,10 +1,6 @@
-import React, { forwardRef, memo, ReactNode } from 'react';
+import React, { forwardRef, memo } from 'react';
+import { IRenderItem } from './IRenderItem';
 import styles from './RenderList.module.scss';
-
-export interface IRenderItem {
-  key: string;
-  render: () => ReactNode;
-}
 
 export interface IRenderListProps {
   isGrid?: boolean;

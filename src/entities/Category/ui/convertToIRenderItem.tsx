@@ -1,4 +1,4 @@
-import { IRenderItem } from 'src/shared/ui/RenderList/RenderList';
+import { IRenderItem } from 'src/shared/ui/RenderList/IRenderItem';
 import { CategoryCard } from './CategoryCard';
 import { Category } from '../types/category';
 

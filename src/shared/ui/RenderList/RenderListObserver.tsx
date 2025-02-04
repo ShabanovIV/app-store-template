@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
-import { RenderList, IRenderItem } from './RenderList';
+import { IRenderItem } from './IRenderItem';
+import { RenderList } from './RenderList';
 
 export interface IRenderListObserverProps {
   isGrid?: boolean;
