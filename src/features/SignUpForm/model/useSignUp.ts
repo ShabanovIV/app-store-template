@@ -5,7 +5,7 @@ import { FieldType } from '../types/fields';
 
 export const useSignUp = (form: FormInstance<FieldType>) => {
   const [signup, { isLoading, isSuccess, error }] = useSignupMutation();
-  const { errorElement } = useErrorHandler<FieldType>({ form, error });
+  useErrorHandler<FieldType>({ form, error });
 
   const signUp = async (email: string, password: string) => {
     await signup({ email, password });
@@ -13,7 +13,6 @@ export const useSignUp = (form: FormInstance<FieldType>) => {
 
   return {
     signUp,
-    errorElement,
     isLoading,
     isSuccess,
   };

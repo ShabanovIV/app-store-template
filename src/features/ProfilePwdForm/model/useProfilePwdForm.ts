@@ -6,8 +6,8 @@ import { FieldType } from '../types/fields';
 
 export const useProfilePassword = (form: FormInstance<FieldType>) => {
   const [changePassword, { isLoading, isSuccess, error }] = useChangePasswordMutation();
-  const { errorElement } = useErrorHandler({ form, error });
-  const { successElement } = useSuccessHandler({
+  useErrorHandler({ form, error });
+  useSuccessHandler({
     isSuccess,
     mess: 'Password successfully changed',
   });
@@ -18,8 +18,6 @@ export const useProfilePassword = (form: FormInstance<FieldType>) => {
 
   return {
     changePass,
-    errorElement,
-    successElement: successElement,
     isLoading,
     isSuccess,
   };

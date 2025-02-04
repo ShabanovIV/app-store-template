@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { FormInstance, message } from 'antd';
+import { FormInstance } from 'antd';
+import { useMessage } from 'src/shared/hooks/useMessage';
 import { extractFormErrors, extractWithoutFiledErrors, throwIfGlobalError } from './errorParser';
 
 export interface UseErrorHandlerProps<TFields> {
@@ -8,7 +9,7 @@ export interface UseErrorHandlerProps<TFields> {
 }
 
 export const useErrorHandler = <TFields>({ form, error }: UseErrorHandlerProps<TFields>) => {
-  const [messageApi, contextHolder] = message.useMessage();
+  const { showError } = useMessage();
 
   useEffect(() => {
     if (error) {
@@ -20,12 +21,8 @@ export const useErrorHandler = <TFields>({ form, error }: UseErrorHandlerProps<T
 
       const joinedMessage = extractWithoutFiledErrors(error);
       if (joinedMessage) {
-        messageApi.error(joinedMessage);
+        showError(joinedMessage);
       }
     }
-  }, [error, form, messageApi]);
-
-  return {
-    errorElement: contextHolder,
-  };
+  }, [error, form]);
 };

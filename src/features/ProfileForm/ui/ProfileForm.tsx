@@ -8,16 +8,7 @@ export const ProfileForm: React.FC = () => {
   const getProfileRules = useProfileRules();
   const [isChanges, setIsChanges] = useState(false);
   const [form] = Form.useForm();
-  const {
-    data,
-    update,
-    errorElement,
-    errorUpdateElement,
-    successElement,
-    isUpdateSuccess,
-    isLoading,
-    isUpdating,
-  } = useProfile(form);
+  const { data, update, isUpdateSuccess, isLoading, isUpdating } = useProfile(form);
 
   useEffect(() => {
     if (data) {
@@ -49,9 +40,6 @@ export const ProfileForm: React.FC = () => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      {errorElement}
-      {errorUpdateElement}
-      {successElement}
       <Form.Item<FieldType> label="Full Name" name="name" rules={getProfileRules('name')}>
         <Input onChange={handleChange} placeholder="John Doe" />
       </Form.Item>

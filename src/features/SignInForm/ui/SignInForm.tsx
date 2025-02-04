@@ -11,7 +11,7 @@ interface SignInFormProps {
 export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
   const [form] = Form.useForm();
   const getRules = useRules();
-  const { signIn, errorElement, isLoading, isSuccess } = useSignIn(form);
+  const { signIn, isLoading, isSuccess } = useSignIn(form);
 
   useEffect(() => {
     if (isSuccess) {
@@ -35,7 +35,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      {errorElement}
       <Form.Item<FieldType> label="Email" name="email" rules={getRules(Fields.email)}>
         <Input />
       </Form.Item>

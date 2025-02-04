@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { message } from 'antd';
+import { useEffect } from 'react';
+import { useMessage } from './useMessage';
 
 interface UseSuccessHandlerProps {
   isSuccess: boolean;
@@ -7,20 +7,11 @@ interface UseSuccessHandlerProps {
 }
 
 export const useSuccessHandler = ({ isSuccess, mess }: UseSuccessHandlerProps) => {
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const success = useCallback(() => {
-    messageApi.open({
-      type: 'success',
-      content: mess,
-    });
-  }, [mess]);
+  const { showSuccess } = useMessage();
 
   useEffect(() => {
     if (isSuccess) {
-      success();
+      showSuccess(mess);
     }
-  }, [isSuccess, success]);
-
-  return { successElement: contextHolder };
+  }, [isSuccess, showSuccess]);
 };

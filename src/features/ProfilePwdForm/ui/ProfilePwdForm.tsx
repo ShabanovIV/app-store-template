@@ -11,8 +11,7 @@ interface ProfilePwdFormProps {
 export const ProfilePwdForm: React.FC<ProfilePwdFormProps> = ({ onSuccess }) => {
   const [form] = Form.useForm();
   const getPwdRules = useProfilePwdRules(form);
-  const { changePass, errorElement, successElement, isLoading, isSuccess } =
-    useProfilePassword(form);
+  const { changePass, isLoading, isSuccess } = useProfilePassword(form);
 
   useEffect(() => {
     if (isSuccess && onSuccess) {
@@ -34,8 +33,6 @@ export const ProfilePwdForm: React.FC<ProfilePwdFormProps> = ({ onSuccess }) => 
       onFinish={onFinish}
       autoComplete="off"
     >
-      {errorElement}
-      {successElement}
       <Form.Item<FieldType>
         label="Current Password"
         name="password"

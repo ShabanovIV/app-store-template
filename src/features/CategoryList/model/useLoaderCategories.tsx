@@ -19,7 +19,7 @@ export const useLoaderCategories = () => {
       skip: pageNumber === 0 || loadedPages.current.includes(pageNumber),
     },
   );
-  const { errorElement } = useErrorHandler({ error });
+  useErrorHandler({ error });
   const navigate = useNavigate();
 
   const handleLastItem = useCallback(() => {
@@ -61,7 +61,6 @@ export const useLoaderCategories = () => {
     isFetching,
     hasMore,
     categories,
-    errorElement,
     refetch,
     handleLastItem,
   };

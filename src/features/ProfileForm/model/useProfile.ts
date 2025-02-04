@@ -8,9 +8,9 @@ export const useProfile = (form: FormInstance<FieldType>) => {
   const { data, refetch, isLoading, isSuccess, error } = useProfileQuery();
   const [updateProfile, { isLoading: isUpdating, isSuccess: isUpdateSuccess, error: updateError }] =
     useUpdateProfileMutation();
-  const { errorElement } = useErrorHandler({ form, error });
-  const { errorElement: errorUpdateElement } = useErrorHandler({ form, error: updateError });
-  const { successElement } = useSuccessHandler({
+  useErrorHandler({ form, error });
+  useErrorHandler({ form, error: updateError });
+  useSuccessHandler({
     isSuccess: isUpdateSuccess,
     mess: 'Data saved successfully',
   });
@@ -23,9 +23,6 @@ export const useProfile = (form: FormInstance<FieldType>) => {
     data,
     refetch,
     update,
-    errorElement,
-    errorUpdateElement,
-    successElement,
     isLoading,
     isUpdating,
     isUpdateSuccess,
