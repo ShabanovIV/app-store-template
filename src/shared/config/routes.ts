@@ -19,6 +19,13 @@ export const ROUTES = {
     type: RouteTypes.private as RouteType,
     isMenuItem: true,
   },
+  products: {
+    basePath: '/products/:',
+    path: '/products/:categoryId',
+    title: 'Products',
+    type: RouteTypes.private as RouteType,
+    isMenuItem: false,
+  },
   auth: {
     path: '/auth',
     title: 'Sign In',

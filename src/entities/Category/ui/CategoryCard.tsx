@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Space } from 'antd';
+import { MouseEvent } from 'react';
+import { Button, Space, Image, Divider, Card } from 'antd';
 import styles from './CategoryCard.module.scss';
 import { Category } from '../types/category';
 
@@ -22,18 +22,41 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
     }
   };
 
+  const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const buttonType = e.currentTarget.dataset.type;
+
+    if (buttonType === 'delete' && onRemove) {
+      onRemove();
+    } else if (buttonType === 'edit' && onEdit) {
+      onEdit();
+    }
+  };
+
   return (
-    <div className={styles.category} onClick={handleClick}>
-      {category.photo && <img src={category.photo} alt={category.name} />}
-      <h3>{category.name}</h3>
-      <Space>
-        {onEdit && <Button onClick={onEdit}>Edit</Button>}
+    <Card className={styles.categoryCard} onClick={handleClick}>
+      {category.photo && (
+        <Image className={styles.photo} preview={false} src={category.photo} alt={category.name} />
+      )}
+
+      <p className={styles.title}>{category.name}</p>
+
+      {(onEdit || onRemove) && <Divider />}
+
+      <Space className={styles.buttonSpace}>
+        {onEdit && (
+          <Button datatype="edit" onClick={handleButtonClick}>
+            Edit
+          </Button>
+        )}
         {onRemove && (
-          <Button danger onClick={onRemove}>
+          <Button datatype="delete" danger onClick={handleButtonClick}>
             Delete
           </Button>
         )}
       </Space>
-    </div>
+    </Card>
   );
 };

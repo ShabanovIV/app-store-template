@@ -1,18 +1,27 @@
-.category {
+.categoryCard {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  cursor: pointer;
-  border: 0.0625rem solid grey;
-  border-radius: 0.5rem;
-  padding: 0.9375rem;
-  margin: 0.625rem 0;
-  transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
-  max-width: 18.75rem;
   width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0.4;
+}
+
+.title {
+  flex: 0.2;
+}
+
+.buttonSpace {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  flex: 0.3;
 }

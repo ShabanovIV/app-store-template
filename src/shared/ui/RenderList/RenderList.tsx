@@ -23,36 +23,37 @@ export const RenderList: React.FC<IRenderListProps> = ({
     return <div className={styles.empty}>No items to display</div>;
   }
 
-  const memoItems = items.map((item, index) => (
-    <MemoizedListItem
-      key={item.key}
-      item={item}
-      ref={setRefForLast({ items, index, onLastItemChanged, lastItemRef })}
-    />
-  ));
-
-  return <ul className={`${styles.list} ${isGrid ? styles.listGrid : ''}`}>{memoItems}</ul>;
+  return (
+    <ul className={`${styles.list} ${isGrid ? styles.listGrid : ''}`}>
+      {items.map((item, index) => (
+        <ItemMemo
+          key={item.key}
+          item={item}
+          ref={setRefForLast({ items, index, lastItemRef, onLastItemChanged })}
+        />
+      ))}
+    </ul>
+  );
 };
 
-type ListItemProps<TItem> = {
-  item: TItem;
+type ListItemProps = {
+  item: IRenderItem;
 };
 
-const ListItem = forwardRef<HTMLLIElement, ListItemProps<IRenderItem>>(({ item }, ref) => (
+const ItemRef = forwardRef<HTMLLIElement, ListItemProps>(({ item }, ref) => (
   <li id={item.key} ref={ref} className={styles.listItem}>
     {item.render()}
   </li>
 ));
+ItemRef.displayName = 'ItemRef';
 
-ListItem.displayName = 'ListItem';
-
-const MemoizedListItem = memo(ListItem);
+const ItemMemo = memo(ItemRef);
 
 const setRefForLast = ({
   items,
   index,
-  onLastItemChanged,
   lastItemRef,
+  onLastItemChanged,
 }: {
   items: IRenderItem[];
   index: number;

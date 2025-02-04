@@ -31,22 +31,22 @@ const RenderListObserver: React.FC<IRenderListObserverProps> = ({ isGrid, items,
       prevLastItemKey.current = lastItemKey;
     }
 
-    const observer = new IntersectionObserver(handleIntersection, { threshold: 1 });
+    const observer = new IntersectionObserver(handleIntersection, { threshold: 0.5 });
 
-    const currentLastItem = lastItemRef.current; // Сохраняем текущее значение рефа
+    const currentLastItem = lastItemRef.current;
     if (currentLastItem) {
       observer.observe(currentLastItem);
     }
 
     return () => {
       if (currentLastItem) {
-        observer.unobserve(currentLastItem); // Используем сохранённое значение
+        observer.unobserve(currentLastItem);
       }
     };
   }, [handleIntersection, lastItemKey]);
 
   useEffect(() => {
-    hasCalledOnLastItem.current = false; // Сбрасываем флаг при изменении списка
+    hasCalledOnLastItem.current = false;
   }, [lastItemKey]);
 
   return (

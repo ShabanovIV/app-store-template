@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGetCategoriesQuery } from 'src/entities/Category';
 import { convertToIRenderItem } from 'src/entities/Category/ui/convertToRenderItem';
 import { useErrorHandler } from 'src/shared/api/errors/useErrorHandler';
+import { ROUTES } from 'src/shared/config/routes';
 import { IRenderItem } from 'src/shared/ui/RenderList/RenderList';
 
 const PAGE_SIZE = 10;
@@ -18,6 +20,7 @@ export const useLoaderCategories = () => {
     },
   );
   const { errorElement } = useErrorHandler({ error });
+  const navigate = useNavigate();
 
   const handleLastItem = useCallback(() => {
     if (!hasMore || isFetching) return;
@@ -45,7 +48,7 @@ export const useLoaderCategories = () => {
         ...data.data.map((category) => {
           return convertToIRenderItem({
             category,
-            onClick: () => console.log(`Category ${category.name} clicked`),
+            onClick: () => navigate(`${ROUTES.products.basePath}${category.id}`),
           });
         }),
       ]);
@@ -55,6 +58,7 @@ export const useLoaderCategories = () => {
   }, [data, pageNumber]);
 
   return {
+    isFetching,
     hasMore,
     categories,
     errorElement,

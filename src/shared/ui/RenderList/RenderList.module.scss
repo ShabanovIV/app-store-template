@@ -11,33 +11,14 @@
 .listGrid {
   background-color: transparent;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
   grid-auto-rows: auto;
   gap: 1.25rem;
-  justify-content: center;
 }
 
 .listItem {
   background-color: transparent;
-  margin-bottom: 0.3125rem;
-
-  &:nth-child(odd) {
-    animation: fade-in 0.5s ease-in-out;
-  }
-
-  &:nth-child(even) {
-    animation: fade-in 1s ease-in-out;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.625rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  padding: 0;
+  margin: 0;
 }
