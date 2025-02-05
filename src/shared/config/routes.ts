@@ -20,7 +20,7 @@ export const ROUTES = {
     isMenuItem: true,
   },
   products: {
-    basePath: '/products/:',
+    basePath: '/products/',
     path: '/products/:categoryId',
     title: 'Products',
     type: RouteTypes.private as RouteType,

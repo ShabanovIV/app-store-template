@@ -1,29 +1,39 @@
 import { useCallback } from 'react';
 import { Divider, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { Category, useGetCategoriesQuery, convertToIRenderItem } from 'src/entities/Category';
+import { Product, useGetProductsQuery, convertToIRenderItem } from 'src/entities/Product';
 import { ROUTES } from 'src/shared/config/routes';
 import { usePaginatedData } from 'src/shared/hooks/usePaginationData';
 import RenderListObserver from 'src/shared/ui/RenderList/RenderListObserver';
-import styles from './CategoryList.module.scss';
+import styles from './ProductList.module.scss';
 
-const CategoryList: React.FC = () => {
+interface ProductListProps {
+  categoryId: string;
+}
+
+const ProductList: React.FC<ProductListProps> = ({ categoryId }) => {
   const navigate = useNavigate();
+
+  console.log(categoryId);
 
   const fetchFunction = useCallback(
     (pagination: { pageSize: number; pageNumber: number }, skip: boolean) => {
-      return useGetCategoriesQuery(
-        { pagination, name: '"у"', sorting: { type: 'ASC', field: 'createdAt' } },
+      return useGetProductsQuery(
+        {
+          pagination,
+          categoryIds: [categoryId],
+          sorting: { type: 'ASC', field: 'createdAt' },
+        },
         { skip },
       );
     },
-    [],
+    [categoryId],
   );
 
-  const convertItem = useCallback((category: Category) => {
+  const convertItem = useCallback((product: Product) => {
     return convertToIRenderItem({
-      category,
-      onClick: () => navigate(`${ROUTES.products.basePath}${category.id}`),
+      product,
+      onClick: () => navigate(`${ROUTES.products.basePath}${product.id}`),
     });
   }, []);
 
@@ -42,4 +52,4 @@ const CategoryList: React.FC = () => {
   );
 };
 
-export default CategoryList;
+export default ProductList;

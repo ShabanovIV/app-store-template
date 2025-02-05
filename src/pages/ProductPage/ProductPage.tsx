@@ -1,5 +1,9 @@
-// TODO: Реализовать ProductPage.tsx для отображения страницы товаров
-// 1. Создать компонент ProductPage с основной структурой страницы.
-// 2. Импортировать и подключить элементы интерфейса из ui (например, ProductList, ProductDetails).
-// 3. Добавить обработку данных (например, через model или API-запросы).
-// 4. Настроить стили или классы для контейнера страницы.
+import { useParams } from 'react-router-dom';
+import ProductList from 'src/features/ProductList/ui/ProductList';
+
+const CategoryPage: React.FC = () => {
+  const { categoryId } = useParams<{ categoryId: string }>();
+  return <ProductList categoryId={categoryId!} />;
+};
+
+export default CategoryPage;

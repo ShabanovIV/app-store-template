@@ -28,7 +28,7 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
     return { hasError: true, error: new Error('Unknown error.') };
   }
 
-  componentDidCatch(error: unknown, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('AppErrorBoundary caught an error:', error, errorInfo);
   }
 
@@ -41,7 +41,7 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
       return (
         <Result
           status="500"
-          subTitle="Something went wrong."
+          subTitle={isMessage(this.state.error) ? this.state.error.message : 'Unknown error'}
           extra={
             <Button onClick={this.handleRetry} type="primary">
               Try again
