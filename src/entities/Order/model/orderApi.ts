@@ -1,21 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from 'src/shared/api/baseQuery';
 import { convertToUrlSearchParams } from 'src/shared/lib/url/convertToUrlParams';
 import { CreateBody, Order, OrderFilters, Result, UpdateBody } from '../types/order';
 
-const BASE_URL = 'http://19429ba06ff2.vps.myjino.ru/api';
-
 export const orderApi = createApi({
   reducerPath: 'orderApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery,
   endpoints: (builder) => ({
     getOrders: builder.query<Result, OrderFilters>({
       query: (filters: OrderFilters) => {
