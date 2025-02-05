@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useErrorHandler } from '../api/errors/useErrorHandler';
 import { IRenderItem } from '../ui/RenderList/IRenderItem';
 
 const PAGE_SIZE = 10;
 
-export interface PaginatedResponse<T> {
-  data: T[];
+export interface PaginatedResponse<TData> {
+  data: TData[];
   pagination: {
     pageSize: number;
     pageNumber: number;
@@ -18,33 +17,34 @@ export interface PaginatedResponse<T> {
   };
 }
 
-export const usePaginatedData = <T>(
+interface UsePaginationDataProps<TData> {
   fetchFunction: (
-    arg: { pagination: { pageSize: number; pageNumber: number } },
-    options: { skip: boolean },
+    pagination: { pageSize: number; pageNumber: number },
+    skip: boolean,
   ) => {
-    data?: PaginatedResponse<T>;
+    data?: PaginatedResponse<TData>;
     isFetching: boolean;
     isLoading: boolean;
     error?: unknown;
     refetch: () => void;
-  },
-  convertItem: (item: T, navigate: (path: string) => void) => IRenderItem,
-) => {
+  };
+  convertItem: (item: TData) => IRenderItem;
+}
+
+export const usePaginatedData = <TData>({
+  fetchFunction,
+  convertItem,
+}: UsePaginationDataProps<TData>) => {
   const loadedPages = useRef<number[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [items, setItems] = useState<IRenderItem[]>([]);
   const { data, isFetching, isLoading, error, refetch } = fetchFunction(
-    {
-      pagination: { pageSize: PAGE_SIZE, pageNumber: pageNumber },
-    },
-    { skip: pageNumber === 0 || loadedPages.current.includes(pageNumber) },
+    { pageSize: PAGE_SIZE, pageNumber: pageNumber },
+    pageNumber === 0 || loadedPages.current.includes(pageNumber),
   );
 
   useErrorHandler({ error });
-
-  const navigate = useNavigate();
 
   const handleLastItem = useCallback(() => {
     if (!hasMore || isFetching) return;
@@ -65,7 +65,7 @@ export const usePaginatedData = <T>(
       data.pagination.pageNumber === pageNumber
     ) {
       loadedPages.current.push(pageNumber);
-      setItems((prev) => [...prev, ...data.data.map((item) => convertItem(item, navigate))]);
+      setItems((prev) => [...prev, ...data.data.map((item) => convertItem(item))]);
     } else if (data && data.data.length < PAGE_SIZE) {
       setHasMore(false);
     }
