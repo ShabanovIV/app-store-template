@@ -2,6 +2,7 @@ import { isTypeWithDataAsServerErrors } from './errorGuards';
 import { ErrorCode, ServerErrors } from './errors';
 
 const globalErrorCodes = [
+  ErrorCode.ERR_VALIDATION_ERROR,
   ErrorCode.ERR_NOT_VALID,
   ErrorCode.ERR_AUTH,
   ErrorCode.ERR_NO_FILES,

@@ -30,12 +30,15 @@ const ProductList: React.FC<ProductListProps> = ({ categoryId }) => {
     [categoryId],
   );
 
-  const convertItem = useCallback((product: Product) => {
-    return convertToIRenderItem({
-      product,
-      onClick: () => navigate(`${ROUTES.products.basePath}${product.id}`),
-    });
-  }, []);
+  const convertItem = useCallback(
+    (product: Product) => {
+      return convertToIRenderItem({
+        product,
+        onClick: () => navigate(`${ROUTES.products.basePath}${product.id}`),
+      });
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   const { hasMore, isFetching, items, handleLastItem } = usePaginatedData({
     fetchFunction,

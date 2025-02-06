@@ -24,5 +24,5 @@ export const useErrorHandler = <TFields>({ form, error }: UseErrorHandlerProps<T
         showError(joinedMessage);
       }
     }
-  }, [error, form]);
+  }, [error, form, showError]);
 };

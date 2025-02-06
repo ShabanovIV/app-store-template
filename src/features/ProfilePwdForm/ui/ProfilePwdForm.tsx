@@ -17,7 +17,7 @@ export const ProfilePwdForm: React.FC<ProfilePwdFormProps> = ({ onSuccess }) => 
     if (isSuccess && onSuccess) {
       onSuccess();
     }
-  }, [isSuccess]);
+  }, [isSuccess, onSuccess]);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     changePass(values.password, values.newPassword);

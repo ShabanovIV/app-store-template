@@ -81,6 +81,7 @@ export default tseslint.config(
           },
         },
       ],
+      'react-hooks/exhaustive-deps': 'warn',
       'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
       'no-unused-vars': 'off',

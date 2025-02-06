@@ -5,18 +5,18 @@ import styles from './AddToCart.module.scss';
 
 export interface AddToCartProps {
   initialCount: number;
-  onCountChange: (count: number) => void;
+  onCountChanged: (count: number) => void;
 }
 
-const AddToCart: React.FC<AddToCartProps> = ({ initialCount, onCountChange }) => {
+const AddToCart: React.FC<AddToCartProps> = ({ initialCount, onCountChanged }) => {
   const [count, setCount] = useState(initialCount);
   if (count === 0) {
     return <div className={styles.containerCart}>d</div>;
   }
 
   useEffect(() => {
-    onCountChange(count);
-  }, [count]);
+    onCountChanged(count);
+  }, [count, onCountChanged]);
 
   const handleIncrement = () => {
     setCount((prev) => prev + 1);

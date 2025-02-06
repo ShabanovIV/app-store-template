@@ -17,7 +17,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
     if (isSuccess) {
       onSuccess();
     }
-  }, [isSuccess]);
+  }, [isSuccess, onSuccess]);
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     if (values.email && values.password) {

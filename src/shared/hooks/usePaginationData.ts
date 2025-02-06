@@ -69,7 +69,7 @@ export const usePaginatedData = <TData>({
     } else if (data && data.data.length < PAGE_SIZE) {
       setHasMore(false);
     }
-  }, [data, pageNumber]);
+  }, [convertItem, data, pageNumber]);
 
   return {
     isFetching,

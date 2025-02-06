@@ -25,6 +25,7 @@ const CategoryList: React.FC = () => {
       category,
       onClick: () => navigate(`${ROUTES.products.basePath}${category.id}`),
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { hasMore, isFetching, items, handleLastItem } = usePaginatedData({

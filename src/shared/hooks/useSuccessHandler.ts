@@ -13,5 +13,5 @@ export const useSuccessHandler = ({ isSuccess, mess }: UseSuccessHandlerProps) =
     if (isSuccess) {
       showSuccess(mess);
     }
-  }, [isSuccess, showSuccess]);
+  }, [isSuccess, mess, showSuccess]);
 };
