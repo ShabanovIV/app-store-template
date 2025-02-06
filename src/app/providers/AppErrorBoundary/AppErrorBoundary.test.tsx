@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { AppErrorBoundary } from './AppErrorBoundary';
 
-const title = 'Something went wrong.';
+const title = 'Test error';
 const titleButton = 'Try again';
 
 const ErrorThrowingComponent = () => {
-  throw new Error('Test error');
+  throw new Error(title);
 };
 
 describe('AppErrorBoundary', () => {
