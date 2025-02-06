@@ -14,8 +14,6 @@ interface ProductListProps {
 const ProductList: React.FC<ProductListProps> = ({ categoryId }) => {
   const navigate = useNavigate();
 
-  console.log(categoryId);
-
   const fetchFunction = useCallback(
     (pagination: { pageSize: number; pageNumber: number }, skip: boolean) => {
       return useGetProductsQuery(
@@ -47,7 +45,7 @@ const ProductList: React.FC<ProductListProps> = ({ categoryId }) => {
 
   return (
     <div className={styles.container}>
-      <RenderListObserver isGrid={true} items={items} onLastItem={handleLastItem} />
+      <RenderListObserver items={items} onLastItem={handleLastItem} />
       {!hasMore && <p className={styles.end}>Все категории загружены</p>}
       {isFetching && <Divider />}
       {isFetching && <Spin />}

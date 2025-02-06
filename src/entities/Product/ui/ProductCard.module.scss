@@ -1,28 +1,138 @@
-.productCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
-  
-  .photo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 0.4;
-  }
-  
-  .title {
-    flex: 0.2;
-  }
-  
-  .buttonSpace {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    flex: 0.3;
-  }
-  
+/* stylelint-disable color-hex-length */
+.card {
+  width: 14.0625rem;
+  min-height: 21.875rem;
+  box-shadow: 0.0625rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.25rem;
+  transition: 0.2s;
+  position: relative;
+}
+
+.card:hover {
+  box-shadow: 0.25rem 0.5rem 1rem rgba(255, 102, 51, 0.2);
+}
+
+.cardTop {
+  flex: 0 0 13.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardImage {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cardImage > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: 0.2s;
+}
+
+.cardImage:hover > img {
+  transform: scale(1.1);
+}
+
+.cardLabel {
+  padding: 0.25rem 0.5rem;
+  position: absolute;
+  bottom: 0.625rem;
+  left: 0.625rem;
+  background: #ff6633;
+  border-radius: 0.25rem;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.cardBottom {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  padding: 0.625rem;
+}
+
+.cardPrices {
+  display: flex;
+  margin-bottom: 0.625rem;
+  flex: 0 0 50%;
+}
+
+.cardPrice::after {
+  content: "₽";
+  margin-left: 0.25rem;
+  position: relative;
+}
+
+.cardPriceDiscount {
+  font-weight: 700;
+  font-size: 1.1875rem;
+  color: #414141;
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+
+.cardPriceDiscount::before {
+  content: "Со скидкой";
+  font-weight: 400;
+  font-size: 0.8125rem;
+  color: #bfbfbf;
+}
+
+.cardPriceCommon {
+  font-weight: 400;
+  font-size: 1.0625rem;
+  color: #606060;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+}
+
+.cardPriceCommon::before {
+  content: "Обычная";
+  font-weight: 400;
+  font-size: 0.8125rem;
+  color: #bfbfbf;
+}
+
+.cardTitle {
+  display: block;
+  margin-bottom: 0.625rem;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 150%;
+  color: #414141;
+}
+
+.cardTitle:hover {
+  color: #ff6633;
+}
+
+.cardAdd {
+  display: block;
+  width: 100%;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  color: #70c05b;
+  padding: 0.625rem;
+  text-align: center;
+  border: 0.0625rem solid #70c05b;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: auto;
+}
+
+.cardAdd:hover {
+  border: 0.0625rem solid #ff6633;
+  background-color: #ff6633;
+  color: #fff;
+}

@@ -13,7 +13,7 @@ const CategoryList: React.FC = () => {
   const fetchFunction = useCallback(
     (pagination: { pageSize: number; pageNumber: number }, skip: boolean) => {
       return useGetCategoriesQuery(
-        { pagination, name: '"у"', sorting: { type: 'ASC', field: 'createdAt' } },
+        { pagination, sorting: { type: 'ASC', field: 'createdAt' } },
         { skip },
       );
     },
@@ -35,7 +35,7 @@ const CategoryList: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <RenderListObserver isGrid={true} items={items} onLastItem={handleLastItem} />
+      <RenderListObserver items={items} onLastItem={handleLastItem} />
       {!hasMore && <p className={styles.end}>Все категории загружены</p>}
       {isFetching && <Divider />}
       {isFetching && <Spin />}

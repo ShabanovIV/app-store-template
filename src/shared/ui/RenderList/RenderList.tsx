@@ -3,14 +3,12 @@ import { IRenderItem } from './IRenderItem';
 import styles from './RenderList.module.scss';
 
 export interface IRenderListProps {
-  isGrid?: boolean;
   items: IRenderItem[];
   lastItemRef?: React.RefObject<HTMLLIElement | null>;
   onLastItemChanged: (key: string) => void;
 }
 
 export const RenderList: React.FC<IRenderListProps> = ({
-  isGrid,
   items,
   lastItemRef,
   onLastItemChanged,
@@ -20,7 +18,7 @@ export const RenderList: React.FC<IRenderListProps> = ({
   }
 
   return (
-    <ul className={`${styles.list} ${isGrid ? styles.listGrid : ''}`}>
+    <ul className={styles.listGrid}>
       {items.map((item, index) => (
         <ItemMemo
           key={item.key}

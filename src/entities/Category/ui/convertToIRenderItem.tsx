@@ -5,23 +5,11 @@ import { Category } from '../types/category';
 interface ConvertProps {
   category: Category;
   onClick?: (id: string) => void;
-  onEdit?: (id: string) => void;
-  onDelete?: (id: string) => void;
 }
 
-export const convertToIRenderItem = ({
-  category,
-  onClick,
-  onEdit,
-  onDelete,
-}: ConvertProps): IRenderItem => ({
+export const convertToIRenderItem = ({ category, onClick }: ConvertProps): IRenderItem => ({
   key: category.id,
   render: () => (
-    <CategoryCard
-      category={category}
-      onClick={onClick ? () => onClick(category.id) : undefined}
-      onEdit={onEdit ? () => onEdit(category.id) : undefined}
-      onRemove={onDelete ? () => onDelete(category.id) : undefined}
-    />
+    <CategoryCard category={category} onClick={onClick ? () => onClick(category.id) : undefined} />
   ),
 });

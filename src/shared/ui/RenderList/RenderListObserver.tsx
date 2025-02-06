@@ -3,12 +3,11 @@ import { IRenderItem } from './IRenderItem';
 import { RenderList } from './RenderList';
 
 export interface IRenderListObserverProps {
-  isGrid?: boolean;
   items: IRenderItem[];
   onLastItem: () => void;
 }
 
-const RenderListObserver: React.FC<IRenderListObserverProps> = ({ isGrid, items, onLastItem }) => {
+const RenderListObserver: React.FC<IRenderListObserverProps> = ({ items, onLastItem }) => {
   const [lastItemKey, setLastItemKey] = useState('');
   const prevLastItemKey = useRef('');
   const lastItemRef = useRef<HTMLLIElement | null>(null);
@@ -50,14 +49,7 @@ const RenderListObserver: React.FC<IRenderListObserverProps> = ({ isGrid, items,
     hasCalledOnLastItem.current = false;
   }, [lastItemKey]);
 
-  return (
-    <RenderList
-      isGrid={isGrid}
-      items={items}
-      lastItemRef={lastItemRef}
-      onLastItemChanged={setLastItemKey}
-    />
-  );
+  return <RenderList items={items} lastItemRef={lastItemRef} onLastItemChanged={setLastItemKey} />;
 };
 
 export default RenderListObserver;

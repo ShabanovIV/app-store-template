@@ -17,7 +17,8 @@
       "dvw",
       "fr",
       "ms",
-      "s"
+      "s",
+      "deg"
     ],
     "unit-no-unknown": true,
     "scss/load-no-partial-leading-underscore": true,
