@@ -19,7 +19,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category, onClick })
   return (
     <div className={styles.card}>
       <div className={styles.cardTop}>
-        <a href="#" onClick={(e) => e.preventDefault()} className={styles.cardImage}>
+        <a href="#" onClick={handleClick} className={styles.cardImage}>
           <img src={category.photo ? category.photo : empty} alt={category.name} />
         </a>
       </div>

@@ -6,22 +6,10 @@ import { Product } from '../types/product';
 interface ProductCardProps {
   product: Product;
   onClick?: () => void;
+  footer?: () => React.ReactNode;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  // const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-
-  //   const buttonType = e.currentTarget.dataset.type;
-
-  //   if (buttonType === 'delete' && onRemove) {
-  //     onRemove();
-  //   } else if (buttonType === 'edit' && onEdit) {
-  //     onEdit();
-  //   }
-  // };
-
+export const ProductCard: React.FC<ProductCardProps> = ({ product, footer }) => {
   const sale =
     product.oldPrice && product.oldPrice > product.price
       ? Math.round(((product.oldPrice - product.price) * 100) / product.oldPrice)
@@ -49,7 +37,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <a href="#" className={styles.cardTitle}>
           {product.name}
         </a>
-        <button className={styles.cardAdd}>В корзину</button>
+        <div className={styles.cardFooter}>{footer && footer()}</div>
       </div>
     </div>
   );

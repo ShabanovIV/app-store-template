@@ -1,48 +1,52 @@
 import { useEffect, useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, InputNumber, Space } from 'antd';
+import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import { Button, InputNumber } from 'antd';
 import styles from './AddToCart.module.scss';
 
 export interface AddToCartProps {
-  initialCount: number;
-  onCountChanged: (count: number) => void;
+  initialCount?: number;
+  onCountChanged?: (count: number) => void;
 }
 
-const AddToCart: React.FC<AddToCartProps> = ({ initialCount, onCountChanged }) => {
+const AddToCart: React.FC<AddToCartProps> = ({ initialCount = 0, onCountChanged }) => {
   const [count, setCount] = useState(initialCount);
-  if (count === 0) {
-    return <div className={styles.containerCart}>d</div>;
-  }
 
   useEffect(() => {
-    onCountChanged(count);
+    setCount(initialCount);
+  }, [initialCount]);
+
+  useEffect(() => {
+    if (onCountChanged) {
+      onCountChanged(count);
+    }
   }, [count, onCountChanged]);
 
-  const handleIncrement = () => {
-    setCount((prev) => prev + 1);
-  };
+  const handleIncrement = () => setCount((prev) => prev + 1);
+  const handleDecrement = () => setCount((prev) => (prev > 0 ? prev - 1 : 0));
 
-  const handleDecrement = () => {
-    setCount((prev) => prev - 1);
-  };
-
-  return (
-    <Space className={styles.containerCart}>
-      <Button className={styles.buttonCart} onChange={handleIncrement}>
-        <PlusOutlined />
+  return count === 0 ? (
+    <button className={styles.buttonAdd} onClick={handleIncrement}>
+      В корзину
+    </button>
+  ) : (
+    <div className={styles.containerCart}>
+      <Button className={styles.buttonCart} onClick={handleDecrement}>
+        <MinusOutlined />
       </Button>
       <InputNumber
+        controls={false}
         className={styles.inputCart}
-        title="Введите количество товара"
-        type="text"
-        defaultValue={0}
+        readOnly
+        min={0}
+        max={999}
+        type="number"
         value={count}
-        onChange={(value) => setCount(value ?? 0)}
+        onChange={(count) => setCount(count ?? 0)}
       />
-      <Button className={styles.buttonCart} onChange={handleDecrement}>
+      <Button className={styles.buttonCart} onClick={handleIncrement}>
         <PlusOutlined />
       </Button>
-    </Space>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 /* stylelint-disable color-hex-length */
 .card {
   width: 14.0625rem;
-  min-height: 21.875rem;
+  min-height: 19rem;
   box-shadow: 0.0625rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
   background-color: #fff;
   display: flex;
@@ -116,11 +116,22 @@
   color: #ff6633;
 }
 
-.cardAdd {
+.cardFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 89%;
+  color: #70c05b;
+  padding: 0.625rem;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: auto;
+}
+
+.cardButton {
   display: block;
-  width: 100%;
-  font-weight: 400;
-  font-size: 1.0625rem;
   color: #70c05b;
   padding: 0.625rem;
   text-align: center;
@@ -131,7 +142,7 @@
   margin-top: auto;
 }
 
-.cardAdd:hover {
+.cardButton:hover {
   border: 0.0625rem solid #ff6633;
   background-color: #ff6633;
   color: #fff;
