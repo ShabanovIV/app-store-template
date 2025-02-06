@@ -1,3 +1,4 @@
+/* stylelint-disable color-hex-length */
 .containerCart {
   display: flex;
   flex-direction: row;
@@ -9,6 +10,7 @@
   padding: 0;
   margin: auto;
   background-color: transparent;
+  border: 0.0625rem solid black;
 }
 
 .inputCart {
@@ -22,7 +24,7 @@
   margin: auto;
   outline: none;
   appearance: none;
-  border: 1;
+  border: none;
 }
 
 .inputCart:focus {
@@ -40,8 +42,7 @@
   padding: 0;
   cursor: pointer;
   transition: 0.2s;
-  color: #70c05b;
-  border: 1;
+  border: none;
 }
 
 .buttonCart:hover {
@@ -57,13 +58,14 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color: #70c05b;
   padding: 0.625rem;
-  justify-content: center;
   text-align: center;
   cursor: pointer;
   transition: 0.2s;
   margin-top: auto;
+  color: #70c05b;
+  border: 0.0625rem solid #70c05b;
+  border-radius: 0.25rem;
 }
 
 .buttonAdd:hover {

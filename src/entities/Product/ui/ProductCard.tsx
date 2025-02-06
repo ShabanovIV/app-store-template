@@ -34,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, footer }) => 
             </div>
           )}
         </div>
-        <a href="#" className={styles.cardTitle}>
+        <a href="#" onClick={(e) => e.preventDefault()} className={styles.cardTitle}>
           {product.name}
         </a>
         <div className={styles.cardFooter}>{footer && footer()}</div>
