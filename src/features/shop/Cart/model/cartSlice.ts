@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getCart, saveCart } from '../lib/localStorage';
-import { CartItemProps, CartState } from '../types/cart';
+import { CartState } from '../types/cart';
 
 const initialState: CartState = getCart();
 
@@ -8,28 +8,32 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addCartItem(state, action: PayloadAction<CartItemProps>) {
-      state.items.push(action.payload);
-      saveCart(state);
-    },
-    updateCartItem(state, action: PayloadAction<CartItemProps>) {
-      const index = state.items.findIndex((item) => item.product.id === action.payload.product.id);
-      if (index !== -1) {
-        state.items[index] = action.payload;
+    updateAmount(state, action: PayloadAction<{ productId: string; quantity: number }>) {
+      const { productId, quantity } = action.payload;
+      if (quantity > 0) {
+        state[productId] = quantity;
+      } else {
+        delete state[productId];
       }
       saveCart(state);
     },
-    removeCartItem(state, action: PayloadAction<string>) {
-      state.items = state.items.filter((item) => item.product.id !== action.payload);
+
+    removeProduct(state, action: PayloadAction<string>) {
+      delete state[action.payload];
       saveCart(state);
     },
-    clearCartItems(state) {
-      state.items = [];
-      saveCart(state);
+
+    clearCart() {
+      const newState: CartState = {};
+      saveCart(newState);
+      return newState;
     },
   },
 });
 
-export const { addCartItem, updateCartItem, removeCartItem, clearCartItems } = cartSlice.actions;
+export const { updateAmount, removeProduct, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
-export const selectCartItems = (state: RootState) => state.cart.items;
+export const selectProductIds = (state: RootState) => Object.keys(state.cart);
+export const selectCartItems = (state: RootState) => state.cart;
+export const selectProductAmount = (state: RootState, productId: string) =>
+  state.cart[productId] || 0;

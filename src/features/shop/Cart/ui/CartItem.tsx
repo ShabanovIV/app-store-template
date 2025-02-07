@@ -1,8 +1,14 @@
 import React from 'react';
+import { Product } from 'src/entities/Product';
+import AddToCart from './AddToCart';
 import styles from './CartItem.module.scss';
-import { CartItemProps } from '../types/cart';
 
-export const CartItem: React.FC<CartItemProps> = ({ product, amount }) => {
+export interface CartItemProps {
+  product: Product;
+  amount: number;
+}
+
+export const CartItem: React.FC<CartItemProps> = ({ product }) => {
   return (
     <div className={styles.cartItem}>
       <div className={styles.imageWrapper}>
@@ -23,11 +29,7 @@ export const CartItem: React.FC<CartItemProps> = ({ product, amount }) => {
         </div>
       </div>
 
-      <div className={styles.actions}>
-        <button className={styles.button}>−</button>
-        <span className={styles.amount}>{amount}</span>
-        <button className={styles.button}>+</button>
-      </div>
+      <AddToCart productId={product.id} />
     </div>
   );
 };

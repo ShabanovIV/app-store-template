@@ -9,10 +9,10 @@ import { CartState } from '../types/cart';
 export const getCart = (): CartState => {
   const stateStr = getItem(StorageKeys.cartState);
   try {
-    return stateStr ? JSON.parse(stateStr) : { items: [] };
+    return stateStr ? (JSON.parse(stateStr) as CartState) : {};
   } catch (error) {
     console.error('Parsing JSON error for localStorage:', error);
-    return { items: [] };
+    return {};
   }
 };
 
