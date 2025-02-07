@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppContent } from 'src/widgets/AppContent';
-import { AppHeader } from 'src/widgets/AppHeader';
+import { AppContent } from 'src/widgets/layout/AppContent';
+import { AppHeader } from 'src/widgets/layout/AppHeader';
 import styles from './AppLayout.module.scss';
 
 interface LayoutProps {

@@ -1,4 +1,4 @@
-import { ProfileSwitcher } from 'src/widgets/ProfileSwitcher/';
+import { ProfileSwitcher } from 'src/widgets/switchers/ProfileSwitcher';
 
 const ProfilePage: React.FC = () => {
   return <ProfileSwitcher />;

@@ -1,10 +1,11 @@
 import { useCallback } from 'react';
 import { Divider, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { Product, useGetProductsQuery, convertToIRenderItem } from 'src/entities/Product';
+import { Product, useGetProductsQuery } from 'src/entities/Product';
 import { ROUTES } from 'src/shared/config/routes';
 import { usePaginatedData } from 'src/shared/hooks/usePaginationData';
 import RenderListObserver from 'src/shared/ui/RenderList/RenderListObserver';
+import { convertProductToItem } from './convertProductToItem';
 import styles from './ProductList.module.scss';
 
 interface ProductListProps {
@@ -30,7 +31,7 @@ const ProductList: React.FC<ProductListProps> = ({ categoryId }) => {
 
   const convertItem = useCallback(
     (product: Product) => {
-      return convertToIRenderItem({
+      return convertProductToItem({
         product,
         onClick: () => navigate(`${ROUTES.products.basePath}${product.id}`),
       });

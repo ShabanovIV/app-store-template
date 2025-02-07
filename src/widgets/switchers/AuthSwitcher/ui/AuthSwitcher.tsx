@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Button, Space, Typography, Divider } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SignInForm } from 'src/features/SignInForm';
-import { SignUpForm } from 'src/features/SignUpForm';
+import { SignInForm } from 'src/features/forms/SignInForm';
+import { SignUpForm } from 'src/features/forms/SignUpForm';
 import styles from './AuthSwitcher.module.scss';
 
 const { Text } = Typography;

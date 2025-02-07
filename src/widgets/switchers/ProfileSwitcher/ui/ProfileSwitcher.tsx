@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Space, Typography, Divider } from 'antd';
-import { ProfileForm } from 'src/features/ProfileForm';
-import { ProfilePwdForm } from 'src/features/ProfilePwdForm';
+import { ProfileForm } from 'src/features/forms/ProfileForm';
+import { ProfilePwdForm } from 'src/features/forms/ProfilePwdForm';
 import styles from './ProfileSwitcher.module.scss';
 
 const { Text } = Typography;
