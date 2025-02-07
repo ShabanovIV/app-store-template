@@ -1,4 +1,4 @@
-import { AppMenu } from 'src/features/menu/AppMenu';
+import { AppMenu } from 'src/features/AppMenu';
 import { Logo } from 'src/shared/ui/Logo/Logo';
 import styles from './AppHeader.module.scss';
 
