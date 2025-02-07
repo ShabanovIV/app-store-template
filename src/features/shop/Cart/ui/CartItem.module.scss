@@ -1,0 +1,104 @@
+/* stylelint-disable color-hex-length */
+.cartItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.cartItem:hover {
+  transform: scale(1.02);
+}
+
+.imageWrapper {
+  flex: 0 0 4rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: #f5f5f5;
+  overflow: hidden;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.placeholder {
+  font-size: 0.875rem;
+  color: #777;
+  text-align: center;
+}
+
+.info {
+  flex: 1;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.desc {
+  font-size: 0.875rem;
+  color: #777;
+}
+
+.priceSection {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.oldPrice {
+  font-size: 0.875rem;
+  color: #bfbfbf;
+  text-decoration: line-through;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #414141;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.button {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background-color: #70c05b;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #ff6633;
+}
+
+.amount {
+  font-size: 1rem;
+  font-weight: bold;
+}
