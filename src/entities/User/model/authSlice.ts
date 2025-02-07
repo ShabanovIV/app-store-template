@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getToken, removeToken, saveToken } from 'src/shared/lib/appLocalStorage';
+import { getToken, removeToken, saveToken } from 'src/shared/lib/localStorage/tokenService';
 import { userApi } from '../model/userApi';
 
 interface AuthState {
