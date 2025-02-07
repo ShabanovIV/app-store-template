@@ -1,5 +1,5 @@
 import { Product } from 'src/entities/Product';
-import { CartItem } from 'src/features/shop/Cart/ui/CartItem';
+import { CartItem } from 'src/features/Cart/ui/CartItem';
 
 const HomePage: React.FC = () => {
   const product: Product = {
