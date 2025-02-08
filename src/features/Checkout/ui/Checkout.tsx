@@ -3,6 +3,7 @@ import { Button, Divider } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ProductCard } from 'src/entities/Product';
 import { ROUTES } from 'src/shared/config/routes';
+import { formatPrice } from 'src/shared/lib/formats/formatPrice';
 import { IRenderItem } from 'src/shared/ui/RenderList/IRenderItem';
 import { RenderList } from 'src/shared/ui/RenderList/RenderList';
 import styles from './Checkout.module.scss';
@@ -36,11 +37,12 @@ export const Checkout: React.FC = () => {
       <div className={styles.summary}>
         <h2>Order Summary</h2>
         <p>
-          <span>Total Price:</span> <span>{totalPrice} ₽</span>
+          <span>Total Price:</span> <span>{formatPrice(totalPrice)}</span>
         </p>
         {totalOldPrice > totalPrice && (
           <p>
-            <span>Old Price:</span> <span className={styles.oldPrice}>{totalOldPrice} ₽</span>
+            <span>Old Price:</span>
+            <span className={styles.oldPrice}>{formatPrice(totalOldPrice)}</span>
           </p>
         )}
         {totalDiscount > 0 && (
