@@ -5,7 +5,7 @@ import styles from './RenderList.module.scss';
 export interface IRenderListProps {
   items: IRenderItem[];
   lastItemRef?: React.RefObject<HTMLLIElement | null>;
-  onLastItemChanged: (key: string) => void;
+  onLastItemChanged?: (key: string) => void;
 }
 
 export const RenderList: React.FC<IRenderListProps> = ({
@@ -51,13 +51,15 @@ const setRefForLast = ({
 }: {
   items: IRenderItem[];
   index: number;
-  onLastItemChanged: (key: string) => void;
+  onLastItemChanged?: (key: string) => void;
   lastItemRef?: React.RefObject<HTMLLIElement | null>;
 }) => {
   return (element: HTMLLIElement | null) => {
     if (index === items.length - 1 && lastItemRef) {
       lastItemRef.current = element;
-      onLastItemChanged(items[items.length - 1].key);
+      if (onLastItemChanged) {
+        onLastItemChanged(items[items.length - 1].key);
+      }
     }
   };
 };
