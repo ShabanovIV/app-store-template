@@ -44,6 +44,12 @@ export const ROUTES = {
     type: RouteTypes.privateHidden as RouteType,
     isMenuItem: true,
   },
+  checkout: {
+    path: '/checkout',
+    title: 'Checkout',
+    type: RouteTypes.privateHidden as RouteType,
+    isMenuItem: false,
+  },
 } as const;
 
 export const getWithoutHiddenRoutes = () => {

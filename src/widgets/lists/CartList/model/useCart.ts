@@ -13,7 +13,9 @@ export const useCart = () => {
   useErrorHandler({ error });
 
   const items =
-    ids.length === 0 ? [] : data?.data.map((product) => ({ product, amount: cart[product.id] }));
+    ids.length === 0
+      ? []
+      : (data?.data.map((product) => ({ product, amount: cart[product.id] })) ?? []);
 
   return {
     items,
