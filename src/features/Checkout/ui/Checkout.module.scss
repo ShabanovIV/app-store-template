@@ -1,10 +1,15 @@
 .checkoutContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
 .summary {
+  width: 100%;
   margin-top: 20px;
   padding: 15px;
   border: 1px solid #ddd;
@@ -31,20 +36,4 @@
 .discount {
   color: red;
   font-weight: bold;
-}
-
-.checkoutButton {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.checkoutButton:hover {
-  background: #0056b3;
 }

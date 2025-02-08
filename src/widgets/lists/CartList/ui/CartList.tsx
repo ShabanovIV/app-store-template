@@ -15,10 +15,6 @@ export const CartList = () => {
     render: () => <CartItem product={itm.product} amount={itm.amount} />,
   }));
 
-  const handleProceedToCheckout = () => {
-    navigate(ROUTES.checkout.path);
-  };
-
   return (
     <div className={styles.listWrapper}>
       {isFetching && (
@@ -35,9 +31,14 @@ export const CartList = () => {
           </Space>
         </Button.Group>
       )}
-      <RenderList items={cartItems} />
+      <RenderList isGrid={false} items={cartItems} />
       <Divider />
-      {items.length > 0 && <Button onClick={handleProceedToCheckout}>Proceed to Checkout</Button>}
+      {items.length > 0 && (
+        <Button.Group>
+          <Button onClick={() => navigate(ROUTES.category.path)}>Back to catalog</Button>
+          <Button onClick={() => navigate(ROUTES.checkout.path)}>Proceed to Checkout</Button>
+        </Button.Group>
+      )}
     </div>
   );
 };

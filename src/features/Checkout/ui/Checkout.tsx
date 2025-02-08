@@ -1,5 +1,8 @@
 import React from 'react';
+import { Button, Divider } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { ProductCard } from 'src/entities/Product';
+import { ROUTES } from 'src/shared/config/routes';
 import { IRenderItem } from 'src/shared/ui/RenderList/IRenderItem';
 import { RenderList } from 'src/shared/ui/RenderList/RenderList';
 import styles from './Checkout.module.scss';
@@ -11,6 +14,7 @@ export const Checkout: React.FC = () => {
   const { products, order } = useCheckout();
   const { create } = useCreate();
   const { totalPrice, totalOldPrice, totalDiscount } = calculateTotals(products);
+  const navigate = useNavigate();
 
   const items: IRenderItem[] =
     products.map((product) => ({
@@ -44,10 +48,16 @@ export const Checkout: React.FC = () => {
             <span>Discount:</span> <span className={styles.discount}>{totalDiscount}%</span>
           </p>
         )}
-        <button onClick={handleCreate} className={styles.checkoutButton}>
-          Create order
-        </button>
       </div>
+      <Divider />
+      <Button.Group>
+        <Button onClick={() => navigate(ROUTES.cart.path)} className={styles.button}>
+          Back to cart
+        </Button>
+        <Button onClick={handleCreate} className={styles.button}>
+          Create order
+        </Button>
+      </Button.Group>
     </div>
   );
 };
