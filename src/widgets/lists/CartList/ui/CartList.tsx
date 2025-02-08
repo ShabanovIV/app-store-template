@@ -1,4 +1,4 @@
-import { Button, Space, Spin } from 'antd';
+import { Button, Divider, Space, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CartItem } from 'src/features/Cart';
 import { ROUTES } from 'src/shared/config/routes';
@@ -36,6 +36,7 @@ export const CartList = () => {
         </Button.Group>
       )}
       <RenderList items={cartItems} />
+      <Divider />
       {items.length > 0 && <Button onClick={handleProceedToCheckout}>Proceed to Checkout</Button>}
     </div>
   );

@@ -5,9 +5,11 @@ import { RenderList } from 'src/shared/ui/RenderList/RenderList';
 import styles from './Checkout.module.scss';
 import { calculateTotals } from '../lib/calculateTotals';
 import { useCheckout } from '../model/useCheckout';
+import { useCreate } from '../model/useCreate';
 
 export const Checkout: React.FC = () => {
-  const { products } = useCheckout();
+  const { products, order } = useCheckout();
+  const { create } = useCreate();
   const { totalPrice, totalOldPrice, totalDiscount } = calculateTotals(products);
 
   const items: IRenderItem[] =
@@ -15,6 +17,10 @@ export const Checkout: React.FC = () => {
       key: product.id,
       render: () => <ProductCard product={product} />,
     })) ?? [];
+
+  const handleCreate = () => {
+    create(order);
+  };
 
   return (
     <div className={styles.checkoutContainer}>
@@ -38,7 +44,9 @@ export const Checkout: React.FC = () => {
             <span>Discount:</span> <span className={styles.discount}>{totalDiscount}%</span>
           </p>
         )}
-        <button className={styles.checkoutButton}>Create order</button>
+        <button onClick={handleCreate} className={styles.checkoutButton}>
+          Create order
+        </button>
       </div>
     </div>
   );
