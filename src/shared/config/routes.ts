@@ -38,6 +38,12 @@ export const ROUTES = {
     type: RouteTypes.privateHidden as RouteType,
     isMenuItem: true,
   },
+  cart: {
+    path: '/cart',
+    title: 'Cart',
+    type: RouteTypes.privateHidden as RouteType,
+    isMenuItem: true,
+  },
 } as const;
 
 export const getWithoutHiddenRoutes = () => {
