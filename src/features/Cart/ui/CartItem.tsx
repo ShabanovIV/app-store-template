@@ -1,4 +1,5 @@
 import React from 'react';
+import { Divider } from 'antd';
 import { Product } from 'src/entities/Product';
 import AddToCart from './AddToCart';
 import styles from './CartItem.module.scss';
@@ -29,6 +30,7 @@ export const CartItem: React.FC<CartItemProps> = ({ product }) => {
         </div>
       </div>
 
+      <Divider variant="solid" style={{ minHeight: '5rem', maxHeight: '20rem' }} type="vertical" />
       <AddToCart productId={product.id} />
     </div>
   );
