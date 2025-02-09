@@ -6,7 +6,19 @@ import { CreateBody, Product, ProductFilters, Result, UpdateBody } from '../type
 export const productApi = createApi({
   reducerPath: 'productApi',
   baseQuery,
+  tagTypes: ['Product'],
   endpoints: (builder) => ({
+    getAllProducts: builder.query<Result, void>({
+      query: () => {
+        const params = convertToUrlSearchParams({});
+        return {
+          url: '/products',
+          method: 'GET',
+          params,
+        };
+      },
+      providesTags: ['Product'],
+    }),
     getProducts: builder.query<Result, ProductFilters>({
       query: (filters: ProductFilters) => {
         const params = convertToUrlSearchParams(filters);
@@ -16,6 +28,7 @@ export const productApi = createApi({
           params,
         };
       },
+      providesTags: ['Product'],
     }),
     createProduct: builder.mutation<Product, CreateBody>({
       query: (body) => ({
@@ -23,6 +36,7 @@ export const productApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Product'],
     }),
     updateProduct: builder.mutation<Product, UpdateBody>({
       query: (body) => ({
@@ -30,17 +44,20 @@ export const productApi = createApi({
         method: 'PATCH',
         body,
       }),
+      invalidatesTags: ['Product'],
     }),
     deleteProduct: builder.mutation<Product, string>({
       query: (id) => ({
         url: `/products/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Product'],
     }),
   }),
 });
 
 export const {
+  useGetAllProductsQuery,
   useGetProductsQuery,
   useCreateProductMutation,
   useUpdateProductMutation,

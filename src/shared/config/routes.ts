@@ -56,6 +56,12 @@ export const ROUTES = {
     type: RouteTypes.privateHidden as RouteType,
     isMenuItem: true,
   },
+  productEdit: {
+    path: '/productEdit',
+    title: 'Products',
+    type: RouteTypes.privateHidden as RouteType,
+    isMenuItem: true,
+  },
 } as const;
 
 export const getWithoutHiddenRoutes = () => {
