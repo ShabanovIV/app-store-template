@@ -1,18 +1,24 @@
 import { useCallback } from 'react';
-import { Divider, Spin } from 'antd';
+import { Divider, Space, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { Product, useGetProductsQuery } from 'src/entities/Product';
+import { Product, ProductCard, useGetProductsQuery } from 'src/entities/Product';
 import { ROUTES } from 'src/shared/config/routes';
 import { usePaginatedData } from 'src/shared/hooks/usePaginationData';
+import { IRenderItem } from 'src/shared/ui/RenderList/IRenderItem';
 import RenderListObserver from 'src/shared/ui/RenderList/RenderListObserver';
-import { convertProductToItem } from './convertProductToItem';
 import styles from './ProductList.module.scss';
+
+interface ConvertProps {
+  product: Product;
+  onClick?: (id: string) => void;
+}
 
 interface ProductListProps {
   categoryId: string;
+  footerItem?: (productId: string) => React.ReactNode;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ categoryId }) => {
+const ProductList: React.FC<ProductListProps> = ({ categoryId, footerItem }) => {
   const navigate = useNavigate();
 
   const fetchFunction = useCallback(
@@ -28,6 +34,17 @@ const ProductList: React.FC<ProductListProps> = ({ categoryId }) => {
     },
     [categoryId],
   );
+
+  const convertProductToItem = ({ product, onClick }: ConvertProps): IRenderItem => ({
+    key: product.id,
+    render: () => (
+      <ProductCard
+        product={product}
+        onClick={onClick ? () => onClick(product.id) : undefined}
+        footer={() => (footerItem ? footerItem(product.id) : undefined)}
+      />
+    ),
+  });
 
   const convertItem = useCallback(
     (product: Product) => {
@@ -47,8 +64,8 @@ const ProductList: React.FC<ProductListProps> = ({ categoryId }) => {
   return (
     <div className={styles.container}>
       <RenderListObserver items={items} onLastItem={handleLastItem} />
-      {!hasMore && <p className={styles.end}>Все категории загружены</p>}
-      {isFetching && <Divider />}
+      {(isFetching || !hasMore) && <Divider />}
+      {!hasMore && <Space className={styles.end}>Все продукты загружены</Space>}
       {isFetching && <Spin />}
     </div>
   );
