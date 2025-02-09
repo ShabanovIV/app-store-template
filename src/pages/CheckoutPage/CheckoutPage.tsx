@@ -1,4 +1,4 @@
-import { Checkout } from 'src/features/Checkout';
+import { Checkout } from 'src/widgets/shop/Checkout';
 
 const CheckoutPage: React.FC = () => {
   return <Checkout />;
