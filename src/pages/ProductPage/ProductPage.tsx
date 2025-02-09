@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import ProductList from 'src/features/ProductList/ui/ProductList';
+import { ProductCatalog } from 'src/widgets/shop/ProductCatalog/';
 
 const CategoryPage: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
-  return <ProductList categoryId={categoryId!} />;
+  return <ProductCatalog categoryId={categoryId!} />;
 };
 
 export default CategoryPage;
