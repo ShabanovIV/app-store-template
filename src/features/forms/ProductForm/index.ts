@@ -1,1 +1,1 @@
-export * from './ui/ProductCategory';
+export * from './ui/ProductForm';
