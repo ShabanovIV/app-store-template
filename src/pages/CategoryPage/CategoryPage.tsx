@@ -1,4 +1,4 @@
-import CategoryList from 'src/widgets/lists/CategoryList/ui/CategoryList';
+import { CategoryList } from 'src/widgets/lists/CategoryList/';
 import styles from './CategoryPage.module.scss';
 
 const CategoryPage: React.FC = () => {
