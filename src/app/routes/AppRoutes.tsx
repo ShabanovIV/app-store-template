@@ -19,6 +19,7 @@ const CartPage = lazy(() => import('src/pages/CartPage/CartPage'));
 const CheckoutPage = lazy(() => import('src/pages/CheckoutPage/CheckoutPage'));
 const CategoryEditPage = lazy(() => import('src/pages/CategoryEditPage/CategoryEditPage'));
 const ProductEditPage = lazy(() => import('src/pages/ProductEditPage/ProductEditPage'));
+const OrderPage = lazy(() => import('src/pages/OrderPage/OrderPage'));
 
 const PAGES = [
   { path: ROUTES.home.path, element: <HomePage /> },
@@ -27,6 +28,7 @@ const PAGES = [
   { path: ROUTES.category.path, element: <CategoryPage /> },
   { path: ROUTES.products.path, element: <ProductPage /> },
   { path: ROUTES.cart.path, element: <CartPage /> },
+  { path: ROUTES.orders.path, element: <OrderPage /> },
   { path: ROUTES.checkout.path, element: <CheckoutPage /> },
   { path: ROUTES.categoryEdit.path, element: <CategoryEditPage /> },
   { path: ROUTES.productEdit.path, element: <ProductEditPage /> },

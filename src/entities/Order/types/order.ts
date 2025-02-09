@@ -1,26 +1,14 @@
 export type Order = {
   id: string;
-  products: OrderProduct[];
-  userId: string;
-  user?: {
-    id: string;
-    name: string;
-    email: string;
-  };
+  products: {
+    product?: {
+      name: string;
+      price: number;
+    };
+    quantity: number;
+  }[];
   status: OrderStatus;
   createdAt: string;
-  updatedAt: string;
-  commandId: string;
-};
-
-export type OrderProduct = {
-  product?: {
-    id: string;
-    name: string;
-    price: number;
-    photo?: string;
-  };
-  quantity: number;
 };
 
 export type OrderFilters = {

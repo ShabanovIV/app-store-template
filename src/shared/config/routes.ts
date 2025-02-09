@@ -44,6 +44,12 @@ export const ROUTES = {
     type: RouteTypes.privateHidden as RouteType,
     isMenuItem: true,
   },
+  orders: {
+    path: '/orders',
+    title: 'Order',
+    type: RouteTypes.privateHidden as RouteType,
+    isMenuItem: true,
+  },
   checkout: {
     path: '/checkout',
     title: 'Checkout',
