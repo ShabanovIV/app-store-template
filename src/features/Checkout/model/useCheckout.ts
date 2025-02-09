@@ -15,7 +15,7 @@ export const useCheckout = () => {
         quantity: cartItems[id],
       }))
       .filter((item) => item.quantity > 0),
-    status: OrderStatus.Delivered,
+    status: OrderStatus.Processing,
   };
 
   const products = data?.data ?? [];
