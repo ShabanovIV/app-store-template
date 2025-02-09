@@ -50,6 +50,12 @@ export const ROUTES = {
     type: RouteTypes.privateHidden as RouteType,
     isMenuItem: false,
   },
+  categoryEdit: {
+    path: '/categoryEdit',
+    title: 'Categories',
+    type: RouteTypes.privateHidden as RouteType,
+    isMenuItem: true,
+  },
 } as const;
 
 export const getWithoutHiddenRoutes = () => {

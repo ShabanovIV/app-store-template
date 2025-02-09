@@ -17,6 +17,7 @@ const CategoryPage = lazy(() => import('src/pages/CategoryPage/CategoryPage'));
 const ProductPage = lazy(() => import('src/pages/ProductPage/ProductPage'));
 const CartPage = lazy(() => import('src/pages/CartPage/CartPage'));
 const CheckoutPage = lazy(() => import('src/pages/CheckoutPage/CheckoutPage'));
+const CategoryEditPage = lazy(() => import('src/pages/CategoryEditPage/CategoryEditPage'));
 
 const PAGES = [
   { path: ROUTES.home.path, element: <HomePage /> },
@@ -26,6 +27,7 @@ const PAGES = [
   { path: ROUTES.products.path, element: <ProductPage /> },
   { path: ROUTES.cart.path, element: <CartPage /> },
   { path: ROUTES.checkout.path, element: <CheckoutPage /> },
+  { path: ROUTES.categoryEdit.path, element: <CategoryEditPage /> },
 ];
 
 const AppRoutes = () => {

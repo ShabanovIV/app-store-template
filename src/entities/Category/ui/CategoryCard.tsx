@@ -9,7 +9,7 @@ interface CategoryCardProps {
   footer?: () => ReactNode;
 }
 
-export const CategoryCard: React.FC<CategoryCardProps> = ({ category, onClick }) => {
+export const CategoryCard: React.FC<CategoryCardProps> = ({ category, onClick, footer }) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     e.stopPropagation();
@@ -27,6 +27,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category, onClick })
         <a href="#" onClick={handleClick} className={styles.cardTitle}>
           {category.name}
         </a>
+        {footer && footer()}
       </div>
     </div>
   );

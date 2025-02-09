@@ -1,29 +1,42 @@
 import { useEffect, useState } from 'react';
 import { Button, Form, Input, Spin } from 'antd';
 import { getCategoryRules } from '../lib/getCategoryRules';
+import { useCreate } from '../model/useCreate';
 import { useGet } from '../model/useGet';
 import { useUpdate } from '../model/useUpdate';
 import { FieldType } from '../types/fields';
 
+export const Actions = {
+  create: 'create',
+  update: 'update',
+} as const;
+
+export type Action = (typeof Actions)[keyof typeof Actions];
+
 interface CategoryFormProps {
-  onIsFetchingChanged: (isFetching: boolean) => void;
+  action: Action;
+  categoryId: string;
+  onCreated: () => void;
 }
 
-export const CategoryForm: React.FC<CategoryFormProps> = ({ onIsFetchingChanged }) => {
-  const [isChanges, setIsChanges] = useState(false);
+export const CategoryForm: React.FC<CategoryFormProps> = ({ action, categoryId, onCreated }) => {
+  const [isChanges, setIsChanges] = useState(action === Actions.create);
   const [form] = Form.useForm();
-  const { data, isFetching } = useGet(form);
+  const { data, isFetching } = useGet(action === Actions.create, categoryId, form);
   const { update, isUpdating, isUpdateSuccess } = useUpdate(form);
+  const { create, isCreating, isCreatingSuccess } = useCreate(form);
 
   useEffect(() => {
     if (data) {
-      form.setFieldsValue(data);
+      form.setFieldsValue(data.data[0]);
     }
   }, [data, form]);
 
   useEffect(() => {
-    onIsFetchingChanged(isFetching);
-  }, [isFetching, onIsFetchingChanged]);
+    if (isCreatingSuccess) {
+      onCreated();
+    }
+  }, [isCreatingSuccess, onCreated]);
 
   useEffect(() => {
     if (isUpdateSuccess) {
@@ -38,11 +51,11 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ onIsFetchingChanged 
       labelAlign="left"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
-      onFinish={update}
+      onFinish={action === Actions.update ? update : create}
       autoComplete="off"
     >
       <Form.Item<FieldType> label="Id" name="id">
-        <Input readOnly />
+        <Input readOnly hidden={action === Actions.create} />
       </Form.Item>
 
       <Form.Item<FieldType> label="Name" name="name" rules={getCategoryRules('name')}>
@@ -59,7 +72,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ onIsFetchingChanged 
         style={{ width: '100%' }}
         disabled={isFetching || isUpdating || !isChanges}
       >
-        {isUpdating ? <Spin /> : 'Save'}
+        {isUpdating || isCreating ? <Spin /> : action === Actions.update ? 'Save' : 'Create'}
       </Button>
     </Form>
   );

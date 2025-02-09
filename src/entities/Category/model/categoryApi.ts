@@ -6,7 +6,19 @@ import { Category, Result, CreateBody, CategoryFilters, UpdateBody } from '../ty
 export const categoryApi = createApi({
   reducerPath: 'categoryApi',
   baseQuery,
+  tagTypes: ['Category'],
   endpoints: (builder) => ({
+    getAllCategories: builder.query<Result, void>({
+      query: () => {
+        const params = convertToUrlSearchParams({});
+        return {
+          url: '/categories',
+          method: 'GET',
+          params,
+        };
+      },
+      providesTags: ['Category'],
+    }),
     getCategories: builder.query<Result, CategoryFilters>({
       query: (filters: CategoryFilters) => {
         const params = convertToUrlSearchParams(filters);
@@ -16,6 +28,7 @@ export const categoryApi = createApi({
           params,
         };
       },
+      providesTags: ['Category'],
     }),
     createCategory: builder.mutation<Category, CreateBody>({
       query: (body) => ({
@@ -23,6 +36,7 @@ export const categoryApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Category'],
     }),
     updateCategory: builder.mutation<Category, UpdateBody>({
       query: ({ id, name, photo }) => ({
@@ -30,9 +44,22 @@ export const categoryApi = createApi({
         method: 'PATCH',
         body: { name, photo },
       }),
+      invalidatesTags: ['Category'],
+    }),
+    deleteCategory: builder.mutation<Category, string>({
+      query: (id) => ({
+        url: `/categories/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Category'],
     }),
   }),
 });
 
-export const { useGetCategoriesQuery, useCreateCategoryMutation, useUpdateCategoryMutation } =
-  categoryApi;
+export const {
+  useGetAllCategoriesQuery,
+  useGetCategoriesQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
+} = categoryApi;
