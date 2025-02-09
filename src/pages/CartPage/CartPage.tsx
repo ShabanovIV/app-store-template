@@ -1,4 +1,4 @@
-import { CartList } from 'src/widgets/lists/CartList/ui/CartList';
+import { CartList } from 'src/widgets/shop/CartList/ui/CartList';
 
 const CartPage: React.FC = () => {
   return <CartList />;
