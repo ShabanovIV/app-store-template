@@ -1,5 +1,5 @@
 import AddToCart from 'src/features/Cart/ui/AddToCart';
-import ProductList from 'src/features/ProductList/ui/ProductList';
+import { ProductList } from 'src/features/ProductList';
 
 interface ProductCatalogProps {
   categoryId: string;

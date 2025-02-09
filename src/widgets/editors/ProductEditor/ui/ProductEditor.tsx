@@ -6,7 +6,7 @@ import {
   useDeleteProductMutation,
   useGetAllProductsQuery,
 } from 'src/entities/Product';
-import { Action, Actions, ProductForm } from 'src/features/forms/ProductForm/';
+import { Action, Actions, ProductForm } from 'src/features/forms/ProductForm';
 import { useErrorHandler } from 'src/shared/api/errors/useErrorHandler';
 import { useSuccessHandler } from 'src/shared/hooks/useSuccessHandler';
 import { IRenderItem } from 'src/shared/ui/RenderList/IRenderItem';

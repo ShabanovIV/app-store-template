@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { ProductCatalog } from 'src/widgets/shop/ProductCatalog/';
+import { ProductCatalog } from 'src/widgets/shop/ProductCatalog';
 
 const CategoryPage: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>();

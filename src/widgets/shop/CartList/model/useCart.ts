@@ -1,5 +1,5 @@
 import { useGetProductsQuery } from 'src/entities/Product';
-import { selectCartItems, selectProductIds } from 'src/features/Cart/model/cartSlice';
+import { selectCartItems, selectProductIds } from 'src/features/Cart';
 import { useErrorHandler } from 'src/shared/api/errors/useErrorHandler';
 import { useAppSelector } from 'src/shared/hooks/store';
 

@@ -18,7 +18,7 @@ interface ProductListProps {
   footerItem?: (productId: string) => React.ReactNode;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ categoryId, footerItem }) => {
+export const ProductList: React.FC<ProductListProps> = ({ categoryId, footerItem }) => {
   const navigate = useNavigate();
 
   const fetchFunction = useCallback(
@@ -70,5 +70,3 @@ const ProductList: React.FC<ProductListProps> = ({ categoryId, footerItem }) => 
     </div>
   );
 };
-
-export default ProductList;

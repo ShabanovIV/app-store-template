@@ -1,10 +1,9 @@
-import { CreateBody, OrderStatus } from 'src/entities/Order/types/order';
+import { CreateBody, OrderStatus } from 'src/entities/Order';
 import { useGetProductsQuery } from 'src/entities/Product';
-import { selectCartItems } from 'src/features/Cart/model/cartSlice';
 import { useAppSelector } from 'src/shared/hooks/store';
 
 export const useCheckout = () => {
-  const cartItems = useAppSelector((state) => selectCartItems(state));
+  const cartItems = useAppSelector((state) => state.cart);
   const ids = Object.keys(cartItems);
   const { data, isFetching } = useGetProductsQuery({ ids }, { refetchOnMountOrArgChange: true });
 

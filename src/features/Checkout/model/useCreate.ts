@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCreateOrderMutation } from 'src/entities/Order/model/orderApi';
-import { CreateBody } from 'src/entities/Order/types/order';
-import { clearCart } from 'src/features/Cart/model/cartSlice';
+import { useCreateOrderMutation, CreateBody } from 'src/entities/Order';
+import { clearCart } from 'src/features/Cart';
 import { useErrorHandler } from 'src/shared/api/errors/useErrorHandler';
 import { ROUTES } from 'src/shared/config/routes';
 import { useAppDispatch } from 'src/shared/hooks/store';

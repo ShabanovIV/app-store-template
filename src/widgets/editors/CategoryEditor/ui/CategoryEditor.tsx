@@ -6,7 +6,7 @@ import {
   useDeleteCategoryMutation,
   useGetAllCategoriesQuery,
 } from 'src/entities/Category';
-import { Action, Actions, CategoryForm } from 'src/features/forms/CategoryForm/ui/CategoryForm';
+import { Action, Actions, CategoryForm } from 'src/features/forms/CategoryForm';
 import { useErrorHandler } from 'src/shared/api/errors/useErrorHandler';
 import { useSuccessHandler } from 'src/shared/hooks/useSuccessHandler';
 import { IRenderItem } from 'src/shared/ui/RenderList/IRenderItem';

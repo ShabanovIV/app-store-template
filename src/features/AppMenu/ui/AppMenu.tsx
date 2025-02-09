@@ -1,7 +1,6 @@
 import { LogoutOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from 'src/entities/User';
-import { logout } from 'src/entities/User/model/authSlice';
+import { useAuth, logout } from 'src/entities/User';
 import { getHiddenRoutes, getWithoutHiddenRoutes, ROUTES } from 'src/shared/config/routes';
 import { useAppDispatch } from 'src/shared/hooks/store';
 import styles from './AppMenu.module.scss';

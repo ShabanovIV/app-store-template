@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { categoryApi } from 'src/entities/Category/model/categoryApi';
-import { orderApi } from 'src/entities/Order/model/orderApi';
+import { categoryApi } from 'src/entities/Category';
+import { orderApi } from 'src/entities/Order/';
 import { productApi } from 'src/entities/Product';
 import { userApi, authReducer, profileApi } from 'src/entities/User/';
 import { cartReducer } from 'src/features/Cart';
