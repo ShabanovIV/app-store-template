@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
-import { useSignUpRules } from '../lib/useSignUpRules';
+import { getSignUpRules } from '../lib/getSignUpRules';
 import { useSignUp } from '../model/useSignUp';
 import { FieldType } from '../types/fields';
 
@@ -10,7 +10,6 @@ interface SignUpFormProps {
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess }) => {
   const [form] = Form.useForm<FieldType>();
-  const getRules = useSignUpRules(form);
   const { signUp, isLoading, isSuccess } = useSignUp(form);
 
   useEffect(() => {
@@ -35,15 +34,19 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess }) => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      <Form.Item<FieldType> label="Email" name="email" rules={getRules('email')}>
+      <Form.Item<FieldType> label="Email" name="email" rules={getSignUpRules('email', form)}>
         <Input />
       </Form.Item>
 
-      <Form.Item<FieldType> label="Password" name="password" rules={getRules('password')}>
+      <Form.Item<FieldType>
+        label="Password"
+        name="password"
+        rules={getSignUpRules('password', form)}
+      >
         <Input.Password />
       </Form.Item>
 
-      <Form.Item<FieldType> label="Confirm" name="confirm" rules={getRules('confirm')}>
+      <Form.Item<FieldType> label="Confirm" name="confirm" rules={getSignUpRules('confirm', form)}>
         <Input.Password />
       </Form.Item>
 

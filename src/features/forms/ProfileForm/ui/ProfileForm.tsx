@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
-import { useProfileRules } from '../lib/useProfileRules';
+import { getProfileRules } from '../lib/getProfileRules';
 import { useProfile } from '../model/useProfile';
 import { FieldType } from '../types/fields';
 
 export const ProfileForm: React.FC = () => {
-  const getProfileRules = useProfileRules();
   const [isChanges, setIsChanges] = useState(false);
   const [form] = Form.useForm();
   const { data, update, isUpdateSuccess, isLoading, isUpdating } = useProfile(form);

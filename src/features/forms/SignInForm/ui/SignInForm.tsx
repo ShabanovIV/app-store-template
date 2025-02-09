@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
-import { Fields, useRules } from 'src/shared/lib/formValidation/useRules';
+import { Fields, getRules } from 'src/shared/lib/formValidation/getRules';
 import { useSignIn } from '../model/useSignIn';
 import { FieldType } from '../types/fields';
 
@@ -10,7 +10,6 @@ interface SignInFormProps {
 
 export const SignInForm: React.FC<SignInFormProps> = ({ onSuccess }) => {
   const [form] = Form.useForm();
-  const getRules = useRules();
   const { signIn, isLoading, isSuccess } = useSignIn(form);
 
   useEffect(() => {

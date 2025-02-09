@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
-import { useProfilePwdRules } from '../lib/useProfilePwdRules';
+import { getProfilePwdRules } from '../lib/getProfilePwdRules';
 import { useProfilePassword } from '../model/useProfilePwdForm';
 import { FieldType } from '../types/fields';
 
@@ -10,7 +10,6 @@ interface ProfilePwdFormProps {
 
 export const ProfilePwdForm: React.FC<ProfilePwdFormProps> = ({ onSuccess }) => {
   const [form] = Form.useForm();
-  const getPwdRules = useProfilePwdRules(form);
   const { changePass, isLoading, isSuccess } = useProfilePassword(form);
 
   useEffect(() => {
@@ -36,7 +35,7 @@ export const ProfilePwdForm: React.FC<ProfilePwdFormProps> = ({ onSuccess }) => 
       <Form.Item<FieldType>
         label="Current Password"
         name="password"
-        rules={getPwdRules('password')}
+        rules={getProfilePwdRules('password', form)}
       >
         <Input.Password placeholder="Enter current password" />
       </Form.Item>
@@ -44,12 +43,16 @@ export const ProfilePwdForm: React.FC<ProfilePwdFormProps> = ({ onSuccess }) => 
       <Form.Item<FieldType>
         label="New Password"
         name="newPassword"
-        rules={getPwdRules('newPassword')}
+        rules={getProfilePwdRules('newPassword', form)}
       >
         <Input.Password placeholder="Enter new password" />
       </Form.Item>
 
-      <Form.Item<FieldType> label="Confirm password" name="confirm" rules={getPwdRules('confirm')}>
+      <Form.Item<FieldType>
+        label="Confirm password"
+        name="confirm"
+        rules={getProfilePwdRules('confirm', form)}
+      >
         <Input.Password placeholder="Confirm password" />
       </Form.Item>
 
