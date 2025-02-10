@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetCategoriesQuery } from 'src/entities/Category';
+import { useAuth } from 'src/entities/User';
 import { useErrorHandler } from 'src/shared/api/errors/useErrorHandler';
 import { ROUTES } from 'src/shared/config/routes';
 import { IRenderItem } from 'src/shared/ui/RenderList/IRenderItem';
@@ -10,33 +11,36 @@ const PAGE_SIZE = 10;
 
 export const useCategoryPaginateData = () => {
   const navigate = useNavigate();
+  const { isAuth } = useAuth();
   const loadedPages = useRef<number[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [items, setItems] = useState<IRenderItem[]>([]);
-  const { data, isFetching, isLoading, error, refetch } = useGetCategoriesQuery(
+  const { data, isFetching, error, refetch } = useGetCategoriesQuery(
     {
       pagination: { pageSize: PAGE_SIZE, pageNumber: pageNumber },
       sorting: { type: 'ASC', field: 'createdAt' },
     },
     {
-      skip: pageNumber === 0 || loadedPages.current.includes(pageNumber),
       refetchOnMountOrArgChange: true,
     },
   );
 
   useErrorHandler({ error });
 
+  useEffect(() => {
+    if (data === undefined) {
+      loadedPages.current = [];
+      setItems([]);
+      setHasMore(true);
+      setPageNumber(1);
+    }
+  }, [data]);
+
   const handleLastItem = useCallback(() => {
     if (!hasMore || isFetching) return;
     setPageNumber((prev) => prev + 1);
   }, [hasMore, isFetching]);
-
-  useEffect(() => {
-    if (isLoading && isFetching) {
-      setItems([]);
-    }
-  }, [isFetching, isLoading]);
 
   useEffect(() => {
     if (
@@ -45,10 +49,6 @@ export const useCategoryPaginateData = () => {
       !loadedPages.current.includes(pageNumber) &&
       data.pagination.pageNumber === pageNumber
     ) {
-      console.log(data);
-
-      console.log('pageNumber' + pageNumber);
-
       loadedPages.current.push(pageNumber);
       setItems((prev) => [
         ...prev,
@@ -63,6 +63,7 @@ export const useCategoryPaginateData = () => {
   }, [data, pageNumber]);
 
   return {
+    isAuth,
     isFetching,
     hasMore,
     items,
