@@ -20,7 +20,7 @@ export const useCreate = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(clearCart());
-      navigate(ROUTES.category.path);
+      navigate(ROUTES.orders.path);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
