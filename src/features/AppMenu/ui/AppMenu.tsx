@@ -18,7 +18,7 @@ export const AppMenu: React.FC = () => {
   const handleLogout = () => {
     if (isAuth) {
       dispatch(logout());
-      navigate(ROUTES.auth.path);
+      navigate(ROUTES.home.path);
     }
   };
 

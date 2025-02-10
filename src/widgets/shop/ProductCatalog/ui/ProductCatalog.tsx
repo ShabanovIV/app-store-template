@@ -1,4 +1,3 @@
-import AddToCart from 'src/features/Cart/ui/AddToCart';
 import { ProductList } from 'src/features/ProductList';
 
 interface ProductCatalogProps {
@@ -6,10 +5,5 @@ interface ProductCatalogProps {
 }
 
 export const ProductCatalog: React.FC<ProductCatalogProps> = ({ categoryId }) => {
-  return (
-    <ProductList
-      categoryId={categoryId}
-      footerItem={(productId: string) => <AddToCart productId={productId} />}
-    />
-  );
+  return <ProductList categoryId={categoryId} />;
 };

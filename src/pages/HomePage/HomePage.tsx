@@ -12,7 +12,6 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const { isAuth } = useAuth();
   const cart = useAppSelector((state) => selectCartItems(state));
-  console.log(cart);
 
   return (
     <div className={styles.container}>
