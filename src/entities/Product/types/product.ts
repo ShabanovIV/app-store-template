@@ -7,6 +7,9 @@ export type Product = {
   updatedAt: Date;
   oldPrice?: number;
   price: number;
+  category: {
+    id: string;
+  };
   commandId: string;
 };
 

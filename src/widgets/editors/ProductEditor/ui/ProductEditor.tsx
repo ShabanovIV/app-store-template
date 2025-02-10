@@ -74,6 +74,7 @@ export const ProductEditor: React.FC = () => {
         createdAt: new Date(Date.now()),
         updatedAt: new Date(Date.now()),
         price: 0,
+        category: { id: '' },
         commandId: '',
       },
     });

@@ -28,7 +28,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ action, categoryId, 
 
   useEffect(() => {
     if (data) {
-      form.setFieldsValue(data.data[0]);
+      form.setFieldsValue(data);
     }
   }, [data, form]);
 
@@ -54,16 +54,16 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ action, categoryId, 
       onFinish={action === Actions.update ? update : create}
       autoComplete="off"
     >
-      <Form.Item<FieldType> label="Id" name="id">
-        <Input readOnly hidden={action === Actions.create} />
+      <Form.Item<FieldType> label="Id" name="id" hidden={action === Actions.create}>
+        <Input readOnly />
       </Form.Item>
 
       <Form.Item<FieldType> label="Name" name="name" rules={getCategoryRules('name')}>
-        <Input onChange={() => setIsChanges(true)} placeholder="Snowboarding" />
+        <Input onChange={() => setIsChanges(true)} placeholder="Name" />
       </Form.Item>
 
       <Form.Item<FieldType> label="Photo source" name="photo" rules={getCategoryRules('photo')}>
-        <Input onChange={() => setIsChanges(true)} placeholder="URL or file path" />
+        <Input onChange={() => setIsChanges(true)} placeholder="Photo source" />
       </Form.Item>
 
       <Button

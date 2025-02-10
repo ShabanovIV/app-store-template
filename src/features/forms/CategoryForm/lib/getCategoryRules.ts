@@ -9,7 +9,7 @@ export const getCategoryRules = (field: AllowedFields) => {
       { required: true, message: 'Please enter a name' },
       { min: 3, max: 20, message: 'Name must be between 3 and 20 characters' },
       {
-        pattern: /^[a-zA-Z0-9\s]+$/,
+        pattern: /^[a-zA-Zа-яА-Я0-9\s]+$/,
         message: 'Name can only contain letters, numbers, and spaces',
       },
     ],
@@ -17,7 +17,6 @@ export const getCategoryRules = (field: AllowedFields) => {
       {
         pattern: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/i,
         message: 'Invalid photo URL',
-        validateTrigger: 'onSubmit',
       },
     ],
   };

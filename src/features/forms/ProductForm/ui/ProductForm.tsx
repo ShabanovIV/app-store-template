@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Button, Form, Input, Spin } from 'antd';
+import { Button, Form, Input, InputNumber, Select, Spin } from 'antd';
+import { Option } from 'antd/es/mentions';
 import { getProductRules } from '../lib/getProductRules';
 import { useCreate } from '../model/useCreate';
 import { useGet } from '../model/useGet';
@@ -22,13 +23,13 @@ interface ProductFormProps {
 export const ProductForm: React.FC<ProductFormProps> = ({ action, productId, onCreated }) => {
   const [isChanges, setIsChanges] = useState(action === Actions.create);
   const [form] = Form.useForm();
-  const { data, isFetching } = useGet(action === Actions.create, productId, form);
+  const { data, dataCategories, isFetching } = useGet(action === Actions.create, productId, form);
   const { update, isUpdating, isUpdateSuccess } = useUpdate(form);
   const { create, isCreating, isCreatingSuccess } = useCreate(form);
 
   useEffect(() => {
     if (data) {
-      form.setFieldsValue(data.data[0]);
+      form.setFieldsValue({ ...data, categoryId: data.category.id });
     }
   }, [data, form]);
 
@@ -54,32 +55,50 @@ export const ProductForm: React.FC<ProductFormProps> = ({ action, productId, onC
       onFinish={action === Actions.update ? update : create}
       autoComplete="off"
     >
-      <Form.Item<FieldType> label="Id" name="id">
+      <Form.Item<FieldType> label="Id" name="id" hidden={action === Actions.create}>
         <Input readOnly hidden={action === Actions.create} />
       </Form.Item>
 
       <Form.Item<FieldType> label="Name" name="name" rules={getProductRules('name')}>
-        <Input onChange={() => setIsChanges(true)} placeholder="Snowboarding" />
+        <Input onChange={() => setIsChanges(true)} placeholder="Name" />
       </Form.Item>
 
       <Form.Item<FieldType> label="Photo source" name="photo" rules={getProductRules('photo')}>
-        <Input onChange={() => setIsChanges(true)} placeholder="URL" />
+        <Input onChange={() => setIsChanges(true)} placeholder="Photo source" />
       </Form.Item>
 
       <Form.Item<FieldType> label="Description" name="desc">
         <Input.TextArea onChange={() => setIsChanges(true)} placeholder="Description" />
       </Form.Item>
 
-      <Form.Item<FieldType> label="Old price" name="oldPrice">
-        <Input onChange={() => setIsChanges(true)} placeholder="Old price" />
+      <Form.Item<FieldType> label="Old price" name="oldPrice" rules={getProductRules('oldPrice')}>
+        <InputNumber
+          style={{ width: '100%' }}
+          onChange={() => setIsChanges(true)}
+          placeholder="Old price"
+        />
       </Form.Item>
 
-      <Form.Item<FieldType> label="Price" name="price">
-        <Input onChange={() => setIsChanges(true)} placeholder="Price" />
+      <Form.Item<FieldType> label="Price" name="price" rules={getProductRules('price')}>
+        <InputNumber
+          style={{ width: '100%' }}
+          onChange={() => setIsChanges(true)}
+          placeholder="Price"
+        />
       </Form.Item>
 
-      <Form.Item<FieldType> label="CategoryId" name="categoryId">
-        <Input onChange={() => setIsChanges(true)} placeholder="CategoryId" />
+      <Form.Item<FieldType>
+        label="Category"
+        name="categoryId"
+        rules={getProductRules('categoryId')}
+      >
+        <Select placeholder="Category" onChange={() => setIsChanges(true)} allowClear={false}>
+          {dataCategories?.data.map((category) => (
+            <Option key={category.id} value={category.id}>
+              {category.name}
+            </Option>
+          ))}
+        </Select>
       </Form.Item>
 
       <Button
