@@ -1,11 +1,12 @@
 /* stylelint-disable color-hex-length */
 .card {
-  width: 14.0625rem;
-  min-height: 19rem;
-  box-shadow: 0.0625rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-  background-color: #fff;
   display: flex;
   flex-direction: column;
+  width: 14.0625rem;
+  min-height: 26rem;
+  max-height: 30rem;
+  box-shadow: 0.0625rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   border-radius: 0.25rem;
   transition: 0.2s;
   position: relative;
