@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useGetProductsQuery } from 'src/entities/Product';
+import { useAuth } from 'src/entities/User';
 import { useErrorHandler } from 'src/shared/api/errors/useErrorHandler';
 import { IRenderItem } from 'src/shared/ui/RenderList/IRenderItem';
 import { convertToItem } from './convertToItem';
@@ -8,24 +8,31 @@ import { convertToItem } from './convertToItem';
 const PAGE_SIZE = 10;
 
 export const useProductPaginateData = (categoryId: string) => {
-  const navigate = useNavigate();
+  const { isAuth } = useAuth();
   const loadedPages = useRef<number[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [items, setItems] = useState<IRenderItem[]>([]);
-  const { data, isFetching, isLoading, error, refetch } = useGetProductsQuery(
+  const { data, isFetching, error, refetch } = useGetProductsQuery(
     {
       categoryIds: [categoryId],
       pagination: { pageSize: PAGE_SIZE, pageNumber: pageNumber },
       sorting: { type: 'ASC', field: 'createdAt' },
     },
     {
-      skip: pageNumber === 0 || loadedPages.current.includes(pageNumber),
       refetchOnMountOrArgChange: true,
     },
   );
-
   useErrorHandler({ error });
+
+  useEffect(() => {
+    if (data === undefined) {
+      loadedPages.current = [];
+      setItems([]);
+      setHasMore(true);
+      setPageNumber(1);
+    }
+  }, [data]);
 
   const handleLastItem = useCallback(() => {
     if (!hasMore || isFetching) return;
@@ -33,13 +40,8 @@ export const useProductPaginateData = (categoryId: string) => {
   }, [hasMore, isFetching]);
 
   useEffect(() => {
-    if (isLoading && isFetching) {
-      setItems([]);
-    }
-  }, [isFetching, isLoading]);
-
-  useEffect(() => {
     if (
+      isAuth &&
       data &&
       data.data.length > 0 &&
       !loadedPages.current.includes(pageNumber) &&
@@ -50,7 +52,7 @@ export const useProductPaginateData = (categoryId: string) => {
     } else if (data && data.data.length < PAGE_SIZE) {
       setHasMore(false);
     }
-  }, [data, navigate, pageNumber]);
+  }, [data, isAuth, pageNumber]);
 
   return {
     isFetching,

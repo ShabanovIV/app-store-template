@@ -1,5 +1,8 @@
 import { LogoutOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
+import { categoryApi } from 'src/entities/Category';
+import { orderApi } from 'src/entities/Order';
+import { productApi } from 'src/entities/Product';
 import { useAuth, logout } from 'src/entities/User';
 import { getHiddenRoutes, getWithoutHiddenRoutes, ROUTES } from 'src/shared/config/routes';
 import { useAppDispatch } from 'src/shared/hooks/store';
@@ -18,6 +21,9 @@ export const AppMenu: React.FC = () => {
   const handleLogout = () => {
     if (isAuth) {
       dispatch(logout());
+      dispatch(categoryApi.util.resetApiState());
+      dispatch(productApi.util.resetApiState());
+      dispatch(orderApi.util.resetApiState());
       navigate(ROUTES.home.path);
     }
   };
