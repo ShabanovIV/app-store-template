@@ -16,7 +16,7 @@ export const useCategoryPaginateData = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [items, setItems] = useState<IRenderItem[]>([]);
-  const { data, isFetching, error, refetch } = useGetCategoriesQuery(
+  const { data, isFetching, isLoading, error, refetch } = useGetCategoriesQuery(
     {
       pagination: { pageSize: PAGE_SIZE, pageNumber: pageNumber },
       sorting: { type: 'ASC', field: 'createdAt' },
@@ -36,6 +36,12 @@ export const useCategoryPaginateData = () => {
       setPageNumber(1);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isLoading && isFetching) {
+      setItems([]);
+    }
+  }, [isFetching, isLoading]);
 
   const handleLastItem = useCallback(() => {
     if (!hasMore || isFetching) return;

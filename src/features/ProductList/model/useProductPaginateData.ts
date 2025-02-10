@@ -13,7 +13,7 @@ export const useProductPaginateData = (categoryId: string) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [items, setItems] = useState<IRenderItem[]>([]);
-  const { data, isFetching, error, refetch } = useGetProductsQuery(
+  const { data, isFetching, isLoading, error, refetch } = useGetProductsQuery(
     {
       categoryIds: [categoryId],
       pagination: { pageSize: PAGE_SIZE, pageNumber: pageNumber },
@@ -33,6 +33,12 @@ export const useProductPaginateData = (categoryId: string) => {
       setPageNumber(1);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isLoading && isFetching) {
+      setItems([]);
+    }
+  }, [isFetching, isLoading]);
 
   const handleLastItem = useCallback(() => {
     if (!hasMore || isFetching) return;
