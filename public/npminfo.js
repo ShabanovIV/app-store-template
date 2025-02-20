@@ -60,7 +60,7 @@ const getInstalledVersion = async (packageName) => {
   });
 };
 
-const fetchPackageInfo = async (packageName, isDependency = false, isDev = false) => {
+const fetchPackageInfo = async (packageName, level = 0, isDependency = false, isDev = false) => {
   if (excludedPackages.includes(packageName)) return null;
 
   console.log(
@@ -78,7 +78,7 @@ const fetchPackageInfo = async (packageName, isDependency = false, isDev = false
       if (error) {
         console.error(`❌ Ошибка при получении данных о пакете ${packageName}:`, error.message);
         return resolve({
-          level: 0,
+          level,
           name: packageName,
           installedVersion,
           installedVersionDate: "Неизвестно",
@@ -98,7 +98,7 @@ const fetchPackageInfo = async (packageName, isDependency = false, isDev = false
           : "Неизвестно";
 
         resolve({
-          level: 0,
+          level,
           name: packageInfo.name,
           installedVersion,
           installedVersionDate: packageInfo.time?.[installedVersion]
@@ -116,7 +116,7 @@ const fetchPackageInfo = async (packageName, isDependency = false, isDev = false
       } catch (parseError) {
         console.error(`❌ Ошибка парсинга данных о пакете ${packageName}:`, parseError.message);
         resolve({
-          level: 0,
+          level,
           name: packageName,
           installedVersion,
           installedVersionDate: "Неизвестно",
@@ -136,14 +136,14 @@ const buildDependencyTree = async (packageName, level = 0, isDev = false, visite
   if (visited.has(packageName)) return [];
   visited.add(packageName);
 
-  const packageInfo = await fetchPackageInfo(packageName, level > 0, isDev);
+  const packageInfo = await fetchPackageInfo(packageName, level, level > 0, isDev);
   if (!packageInfo) return [];
 
   const children = await Promise.all(
     packageInfo.dependencies.map((dep) => buildDependencyTree(dep, level + 1, isDev, visited))
   );
 
-  return [{ level, ...packageInfo }, ...children.flat()];
+  return [{ ...packageInfo }, ...children.flat()];
 };
 
 const main = async () => {
