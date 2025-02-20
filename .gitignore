@@ -131,3 +131,5 @@ dist
 .idea
 .jest
 storybook-static
+public/dependencies-info_without_stat.xlsx
+public/dependencies-info_prev.xlsx

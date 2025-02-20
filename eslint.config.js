@@ -25,6 +25,7 @@ export default tseslint.config(
       'node_modules',
       '__mocks__/**',
       'coverage',
+      'public/npminfo.js',
       'eslint.config.js',
       'webpack.config.js',
       'jest.config.ts',
