@@ -14,8 +14,8 @@ const LIMIT_ROWS = null;
 
 const packageLockPath = path.resolve("../package-lock.json");
 const packageLock = fs.existsSync(packageLockPath)
-  ? JSON.parse(fs.readFileSync(packageLockPath, "utf8"))
-  : { dependencies: {} };
+  ? JSON.parse(fs.readFileSync(packageLockPath, "utf8")).dependencies || {}
+  : {};
 
 const formatDate = (dateString) => {
   if (!dateString || dateString === "Неизвестно") return "Неизвестно";
@@ -35,6 +35,10 @@ const getVersionFromNodeModules = (packageName) => {
 
 const getInstalledVersion = async (packageName) => {
   return new Promise((resolve) => {
+    if (packageLock[packageName]?.version) {
+      return resolve(packageLock[packageName].version);
+    }
+
     execFile(
       "npm",
       ["list", packageName, "--json", "--depth=0", "--all"],
