@@ -9,7 +9,7 @@ const packageJson = require("../package.json");
 const dependencies = packageJson.dependencies ? Object.keys(packageJson.dependencies) : [];
 const devDependencies = packageJson.devDependencies ? Object.keys(packageJson.devDependencies) : [];
 
-const excludedPackages = ["xlsx", "exceljs"];
+const excludedPackages = [];
 const LIMIT_ROWS = null;
 
 const packageLockPath = path.resolve("../package-lock.json");
@@ -177,14 +177,12 @@ const main = async () => {
   csvData.push(`Всего уникальных пакетов,${allPackages.size}`);
   csvData.push(`Количество пакетов в dependencies,${dependencies.length}`);
   csvData.push(`Количество пакетов в devDependencies,${devDependencies.length}`);
-  csvData.push(`Уникальных зависимостей для dependencies,${new Set(selectedDependencies).size}`);
-  csvData.push(`Уникальных зависимостей для devDependencies,${new Set(selectedDevDependencies).size}`);
 
   fs.writeFileSync("dependencies-info.csv", csvData.join("\n"));
   console.log(`✅ Информация сохранена в dependencies-info.csv (${results.length} строк)`);
 
   console.log("\n📊 Статистика:");
-  csvData.slice(-5).forEach((line) => console.log(`  🔹 ${line.replace(",", ": ")}`));
+  csvData.slice(-3).forEach((line) => console.log(`  🔹 ${line.replace(",", ": ")}`));
 };
 
 main();
