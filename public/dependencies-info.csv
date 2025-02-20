@@ -1,13 +1,13 @@
-Level,Type,Package,Latest Version,Latest Version Date,Description,License
-0,Dependency,@ant-design/icons,5.6.1,07.02.2025,"[![NPM version](https://img.shields.io/npm/v/@ant-design/icons.svg?style=flat)](https://npmjs.org/package/@ant-design/icons) [![NPM downloads](http://img.shields.io/npm/dm/@ant-design/icons.svg?style=flat)](https://npmjs.org/package/@ant-design/icons)",MIT
-1,Dependency,@ant-design/colors,7.2.0,31.12.2024,"Color palettes calculator of Ant Design",MIT
-2,Dependency,@ant-design/fast-color,2.0.6,06.08.2024,"fast and small color class",MIT
-1,Dependency,@ant-design/icons-svg,4.4.2,01.02.2024,"Abstract nodes for ant design icons.",MIT
-1,Dependency,@babel/runtime,7.26.9,14.02.2025,"babel's modular runtime helpers",MIT
-2,Dependency,regenerator-runtime,0.14.1,15.12.2023,"Runtime for Regenerator-compiled generator and async functions.",MIT
-1,Dependency,classnames,2.5.1,29.12.2023,"A simple utility for conditionally joining classNames together",MIT
-1,Dependency,rc-util,5.44.4,08.02.2025,"Common Utils For React Component",MIT
-2,Dependency,react-is,19.0.0,05.12.2024,"Brand checking of React Elements.",MIT
+Level,Type,Package,Latest Version,Latest Version Date,Installed Version,Installed Version Date,Description,License
+0,Dependency,@ant-design/icons,5.6.1,07.02.2025,5.6.1,07.02.2025,"[![NPM version](https://img.shields.io/npm/v/@ant-design/icons.svg?style=flat)](https://npmjs.org/package/@ant-design/icons) [![NPM downloads](http://img.shields.io/npm/dm/@ant-design/icons.svg?style=flat)](https://npmjs.org/package/@ant-design/icons)",MIT
+0,Dependency,@ant-design/colors,7.2.0,31.12.2024,7.2.0,31.12.2024,"Color palettes calculator of Ant Design",MIT
+0,Dependency,@ant-design/fast-color,2.0.6,06.08.2024,2.0.6,06.08.2024,"fast and small color class",MIT
+0,Dependency,@ant-design/icons-svg,4.4.2,01.02.2024,4.4.2,01.02.2024,"Abstract nodes for ant design icons.",MIT
+0,Dependency,@babel/runtime,7.26.9,14.02.2025,7.26.9,14.02.2025,"babel's modular runtime helpers",MIT
+0,Dependency,regenerator-runtime,0.14.1,15.12.2023,0.14.1,15.12.2023,"Runtime for Regenerator-compiled generator and async functions.",MIT
+0,Dependency,classnames,2.5.1,29.12.2023,2.5.1,29.12.2023,"A simple utility for conditionally joining classNames together",MIT
+0,Dependency,rc-util,5.44.4,08.02.2025,5.44.4,08.02.2025,"Common Utils For React Component",MIT
+0,Dependency,react-is,19.0.0,05.12.2024,16.13.1,19.03.2020,"Brand checking of React Elements.",MIT
 
 📊 Статистика:
 Всего уникальных пакетов,9

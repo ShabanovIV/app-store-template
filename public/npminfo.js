@@ -4,31 +4,58 @@ import { execFile } from "child_process";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
-const packageJson = require("../package.json"); // ✅ Загружаем package.json
+const packageJson = require("../package.json");
 
 const dependencies = packageJson.dependencies ? Object.keys(packageJson.dependencies) : [];
 const devDependencies = packageJson.devDependencies ? Object.keys(packageJson.devDependencies) : [];
 
-// ❌ Исключаем ненужные пакеты
 const excludedPackages = ["xlsx", "exceljs"];
+const LIMIT_ROWS = null;
 
-// 🔹 Ограничение количества сканируемых пакетов
-const LIMIT_ROWS = 1;
-
-// ✅ Загружаем package-lock.json (если есть)
 const packageLockPath = path.resolve("../package-lock.json");
 const packageLock = fs.existsSync(packageLockPath)
   ? JSON.parse(fs.readFileSync(packageLockPath, "utf8"))
   : { dependencies: {} };
 
-// ✅ Функция форматирования даты в ДД.ММ.ГГГГ
 const formatDate = (dateString) => {
   if (!dateString || dateString === "Неизвестно") return "Неизвестно";
   const date = new Date(dateString);
-  return date.toISOString().split("T")[0].split("-").reverse().join("."); // Преобразуем YYYY-MM-DD в DD.MM.YYYY
+  return date.toISOString().split("T")[0].split("-").reverse().join(".");
 };
 
-// ✅ Получаем информацию о пакете через `npm view`
+const getVersionFromNodeModules = (packageName) => {
+  try {
+    const packagePath = require.resolve(`${packageName}/package.json`, { paths: [process.cwd()] });
+    const packageData = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+    return packageData.version || "Неизвестно";
+  } catch {
+    return "Не установлено";
+  }
+};
+
+const getInstalledVersion = async (packageName) => {
+  return new Promise((resolve) => {
+    execFile(
+      "npm",
+      ["list", packageName, "--json", "--depth=0", "--all"],
+      { maxBuffer: 1024 * 500 },
+      (error, stdout) => {
+        if (error) {
+          return resolve(getVersionFromNodeModules(packageName));
+        }
+        try {
+          const listInfo = JSON.parse(stdout);
+          resolve(
+            listInfo.dependencies?.[packageName]?.version || getVersionFromNodeModules(packageName)
+          );
+        } catch {
+          resolve(getVersionFromNodeModules(packageName));
+        }
+      }
+    );
+  });
+};
+
 const fetchPackageInfo = async (packageName, isDependency = false, isDev = false) => {
   if (excludedPackages.includes(packageName)) return null;
 
@@ -40,12 +67,17 @@ const fetchPackageInfo = async (packageName, isDependency = false, isDev = false
       : `🔍 Сбор информации: пакет [${packageName}]`
   );
 
+  const installedVersion = await getInstalledVersion(packageName);
+
   return new Promise((resolve) => {
     execFile("npm", ["view", packageName, "--json"], { maxBuffer: 1024 * 500 }, (error, stdout) => {
       if (error) {
         console.error(`❌ Ошибка при получении данных о пакете ${packageName}:`, error.message);
         return resolve({
+          level: 0,
           name: packageName,
+          installedVersion,
+          installedVersionDate: "Неизвестно",
           latestVersion: "Неизвестно",
           latestVersionDate: "Неизвестно",
           description: "Нет данных",
@@ -62,7 +94,12 @@ const fetchPackageInfo = async (packageName, isDependency = false, isDev = false
           : "Неизвестно";
 
         resolve({
+          level: 0,
           name: packageInfo.name,
+          installedVersion,
+          installedVersionDate: packageInfo.time?.[installedVersion]
+            ? formatDate(packageInfo.time[installedVersion])
+            : "Неизвестно",
           latestVersion,
           latestVersionDate,
           description: packageInfo.description?.replace(/(\r\n|\n|\r)/gm, " ") || "Нет описания",
@@ -75,7 +112,10 @@ const fetchPackageInfo = async (packageName, isDependency = false, isDev = false
       } catch (parseError) {
         console.error(`❌ Ошибка парсинга данных о пакете ${packageName}:`, parseError.message);
         resolve({
+          level: 0,
           name: packageName,
+          installedVersion,
+          installedVersionDate: "Неизвестно",
           latestVersion: "Неизвестно",
           latestVersionDate: "Неизвестно",
           description: "Ошибка парсинга",
@@ -88,7 +128,6 @@ const fetchPackageInfo = async (packageName, isDependency = false, isDev = false
   });
 };
 
-// ✅ Рекурсивно строим дерево зависимостей
 const buildDependencyTree = async (packageName, level = 0, isDev = false, visited = new Set()) => {
   if (visited.has(packageName)) return [];
   visited.add(packageName);
@@ -103,7 +142,6 @@ const buildDependencyTree = async (packageName, level = 0, isDev = false, visite
   return [{ level, ...packageInfo }, ...children.flat()];
 };
 
-// ✅ Основная функция
 const main = async () => {
   console.log(`🚀 Запуск сбора информации о первых ${LIMIT_ROWS || "всех"} пакетах...`);
 
@@ -120,40 +158,29 @@ const main = async () => {
   ).flat();
 
   const allPackages = new Set(results.map((pkg) => pkg.name));
-  const uniqueDependencies = new Set(selectedDependencies);
-  const uniqueDevDependencies = new Set(selectedDevDependencies);
 
   const csvData = [
-    "Level,Type,Package,Latest Version,Latest Version Date,Description,License",
+    "Level,Type,Package,Latest Version,Latest Version Date,Installed Version,Installed Version Date,Description,License",
   ];
 
-  results.forEach(({ level, isDev, name, latestVersion, latestVersionDate, description, license }) => {
+  results.forEach(({ level, isDev, name, latestVersion, latestVersionDate, installedVersion, installedVersionDate, description, license }) => {
     const type = isDev ? "DevDependency" : "Dependency";
-    csvData.push(`${level},${type},${name},${latestVersion},${latestVersionDate},"${description}",${license}`);
+    csvData.push(`${level},${type},${name},${latestVersion},${latestVersionDate},${installedVersion},${installedVersionDate},"${description}",${license}`);
   });
 
-  // 📊 Добавляем статистику в CSV и лог
-  const stats = [
-    "",
-    "📊 Статистика:",
-    `Всего уникальных пакетов,${allPackages.size}`,
-    `Количество пакетов в dependencies,${dependencies.length}`,
-    `Количество пакетов в devDependencies,${devDependencies.length}`,
-    `Уникальных зависимостей для dependencies,${uniqueDependencies.size}`,
-    `Уникальных зависимостей для devDependencies,${uniqueDevDependencies.size}`,
-  ];
-  csvData.push(...stats);
+  csvData.push("");
+  csvData.push("📊 Статистика:");
+  csvData.push(`Всего уникальных пакетов,${allPackages.size}`);
+  csvData.push(`Количество пакетов в dependencies,${dependencies.length}`);
+  csvData.push(`Количество пакетов в devDependencies,${devDependencies.length}`);
+  csvData.push(`Уникальных зависимостей для dependencies,${new Set(selectedDependencies).size}`);
+  csvData.push(`Уникальных зависимостей для devDependencies,${new Set(selectedDevDependencies).size}`);
 
   fs.writeFileSync("dependencies-info.csv", csvData.join("\n"));
   console.log(`✅ Информация сохранена в dependencies-info.csv (${results.length} строк)`);
 
-  // 📊 Вывод статистики в лог
-  console.log("📊 Статистика:");
-  console.log(`  🔹 Всего уникальных пакетов: ${allPackages.size}`);
-  console.log(`  🔹 Количество пакетов в dependencies: ${dependencies.length}`);
-  console.log(`  🔹 Количество пакетов в devDependencies: ${devDependencies.length}`);
-  console.log(`  🔹 Уникальных зависимостей для dependencies: ${uniqueDependencies.size}`);
-  console.log(`  🔹 Уникальных зависимостей для devDependencies: ${uniqueDevDependencies.size}`);
+  console.log("\n📊 Статистика:");
+  csvData.slice(-5).forEach((line) => console.log(`  🔹 ${line.replace(",", ": ")}`));
 };
 
 main();
