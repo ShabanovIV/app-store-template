@@ -84,6 +84,7 @@ const fetchPackageInfo = async (packageName, level = 0, isDependency = false, is
           installedVersionDate: "Неизвестно",
           latestVersion: "Неизвестно",
           latestVersionDate: "Неизвестно",
+          homePage: "Нет данных",
           description: "Нет данных",
           license: "Неизвестно",
           dependencies: [],
@@ -106,6 +107,7 @@ const fetchPackageInfo = async (packageName, level = 0, isDependency = false, is
             : "Неизвестно",
           latestVersion,
           latestVersionDate,
+          homePage: packageInfo.homepage || "Не указано",
           description: packageInfo.description?.replace(/(\r\n|\n|\r)/gm, " ") || "Нет описания",
           license: packageInfo.license || "Не указано",
           dependencies: packageInfo.dependencies
@@ -122,6 +124,7 @@ const fetchPackageInfo = async (packageName, level = 0, isDependency = false, is
           installedVersionDate: "Неизвестно",
           latestVersion: "Неизвестно",
           latestVersionDate: "Неизвестно",
+          homePage: "Нет данных",
           description: "Ошибка парсинга",
           license: "Неизвестно",
           dependencies: [],
