@@ -167,12 +167,12 @@ const main = async () => {
   const allPackages = new Set(results.map((pkg) => pkg.name));
 
   const csvData = [
-    "Level,Type,Package,Latest Version,Latest Version Date,Installed Version,Installed Version Date,Description,License",
+    "Level,Type,Package,Latest Version,Latest Version Date,Installed Version,Installed Version Date,Home Page,Description,License",
   ];
 
-  results.forEach(({ level, isDev, name, latestVersion, latestVersionDate, installedVersion, installedVersionDate, description, license }) => {
+  results.forEach(({ level, isDev, name, latestVersion, latestVersionDate, installedVersion, installedVersionDate, homePage, description, license }) => {
     const type = isDev ? "DevDependency" : "Dependency";
-    csvData.push(`${level},${type},${name},${latestVersion},${latestVersionDate},${installedVersion},${installedVersionDate},"${description}",${license}`);
+    csvData.push(`${level},"${type}","${name}","${latestVersion}",${latestVersionDate},"${installedVersion}",${installedVersionDate},"${homePage}","${description}","${license}"`);
   });
 
   csvData.push("");
